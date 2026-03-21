@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useRouter, useParams, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { api } from "~/trpc/react";
 import { useFileUpload } from "~/hooks/use-file-upload";
 import { Button } from "~/components/ui/button";
@@ -93,7 +93,6 @@ function formatFileSize(bytes: number): string {
 }
 
 export default function EditProductPage() {
-  const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
   const productId = params.id as string;
@@ -181,7 +180,7 @@ export default function EditProductPage() {
     (result: { key: string; url: string }) => {
       createAsset.mutate({
         productId,
-        name: assetName || result.key.split("/").pop() || "Asset",
+        name: assetName || (result.key.split("/").pop() ?? "Asset"),
         type: selectedAssetType,
         fileUrl: result.url,
         fileSize: formatFileSize(uploadingFile?.size ?? 0),
@@ -225,19 +224,19 @@ export default function EditProductPage() {
         body: JSON.stringify({
           filename: file.name,
           contentType: file.type,
-          productId: slug || productId,
+          productId: slug ?? productId,
         }),
       });
-      const { uploadId, key } = await initRes.json();
+      const initData: { uploadId: string; key: string } = await initRes.json() as { uploadId: string; key: string };
 
       const presignRes = await fetch("/api/upload/presign", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key, uploadId, partNumber: 1 }),
+        body: JSON.stringify({ key: initData.key, uploadId: initData.uploadId, partNumber: 1 }),
       });
-      const { presignedUrl } = await presignRes.json();
+      const presignData: { presignedUrl: string } = await presignRes.json() as { presignedUrl: string };
 
-      const uploadRes = await fetch(presignedUrl, {
+      const uploadRes = await fetch(presignData.presignedUrl, {
         method: "PUT",
         body: file,
       });
@@ -247,13 +246,13 @@ export default function EditProductPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          key,
-          uploadId,
+          key: initData.key,
+          uploadId: initData.uploadId,
           parts: [{ ETag: etag, PartNumber: 1 }],
         }),
       });
-      const { url } = await completeRes.json();
-      setImage(url);
+      const completeData: { url: string } = await completeRes.json() as { url: string };
+      setImage(completeData.url);
       toast.success("Cover image uploaded");
     } catch {
       toast.error("Failed to upload cover image");
@@ -533,7 +532,7 @@ export default function EditProductPage() {
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="difficulty">Difficulty</Label>
-                    <Select value={difficulty} onValueChange={(v) => setDifficulty((v ?? "BEGINNER") as (typeof DIFFICULTIES)[number])}>
+                    <Select value={difficulty} onValueChange={(v) => setDifficulty(v ?? "BEGINNER")}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select difficulty...">
                           {difficulty.replace(/_/g, " ")}

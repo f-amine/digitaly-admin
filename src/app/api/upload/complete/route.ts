@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { CompleteMultipartUploadCommand } from "@aws-sdk/client-s3";
 import { auth } from "~/server/better-auth";
 import { getR2Client, getR2BucketName, getR2PublicUrl } from "~/server/r2";

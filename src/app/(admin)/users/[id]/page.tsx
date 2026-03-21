@@ -167,7 +167,7 @@ export default function UserDetailPage() {
                     onClick={() =>
                       updateRole.mutate({
                         id: userId,
-                        role: newRole as "FREE_USER" | "PRO_MEMBER",
+                        role: newRole,
                       })
                     }
                   >

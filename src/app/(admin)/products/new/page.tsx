@@ -105,19 +105,19 @@ export default function NewProductPage() {
         body: JSON.stringify({
           filename: file.name,
           contentType: file.type,
-          productId: slug || "new",
+          productId: slug ?? "new",
         }),
       });
-      const { uploadId, key } = await initRes.json();
+      const initData: { uploadId: string; key: string } = await initRes.json() as { uploadId: string; key: string };
 
       const presignRes = await fetch("/api/upload/presign", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key, uploadId, partNumber: 1 }),
+        body: JSON.stringify({ key: initData.key, uploadId: initData.uploadId, partNumber: 1 }),
       });
-      const { presignedUrl } = await presignRes.json();
+      const presignData: { presignedUrl: string } = await presignRes.json() as { presignedUrl: string };
 
-      const uploadRes = await fetch(presignedUrl, {
+      const uploadRes = await fetch(presignData.presignedUrl, {
         method: "PUT",
         body: file,
       });
@@ -127,13 +127,13 @@ export default function NewProductPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          key,
-          uploadId,
+          key: initData.key,
+          uploadId: initData.uploadId,
           parts: [{ ETag: etag, PartNumber: 1 }],
         }),
       });
-      const { url } = await completeRes.json();
-      setImage(url);
+      const completeData: { url: string } = await completeRes.json() as { url: string };
+      setImage(completeData.url);
       toast.success("Cover image uploaded");
     } catch {
       toast.error("Failed to upload cover image");
@@ -362,7 +362,7 @@ export default function NewProductPage() {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="difficulty">Difficulty</Label>
-                <Select value={difficulty} onValueChange={(v) => setDifficulty((v ?? "BEGINNER") as (typeof DIFFICULTIES)[number])}>
+                <Select value={difficulty} onValueChange={(v) => setDifficulty(v ?? "BEGINNER")}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select difficulty...">
                       {difficulty.replace(/_/g, " ")}

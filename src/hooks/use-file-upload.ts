@@ -139,7 +139,7 @@ export function useFileUpload(options: UseFileUploadOptions) {
           if (abortController.signal.aborted) break;
 
           const p = uploadPart(partNumber).then(() => {
-            executing.splice(executing.indexOf(p), 1);
+            void executing.splice(executing.indexOf(p), 1);
           });
           executing.push(p);
 

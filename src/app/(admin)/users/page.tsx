@@ -58,7 +58,7 @@ export default function UsersPage() {
             className="h-8 pl-8 text-xs"
           />
         </div>
-        <Select value={role} onValueChange={(v) => setRole((v ?? "") as "" | "FREE_USER" | "PRO_MEMBER")}>
+        <Select value={role} onValueChange={(v) => setRole(v ?? "")}>
           <SelectTrigger className="h-8 w-[140px] text-xs">
             <SelectValue placeholder="All Roles">
               {role === "FREE_USER" ? "Free User" : role === "PRO_MEMBER" ? "Pro Member" : "All Roles"}

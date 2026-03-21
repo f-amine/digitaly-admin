@@ -73,7 +73,7 @@ export default function LicensesPage() {
           )}
         </div>
         <div className="flex-1" />
-        <Select value={licenseType} onValueChange={(v) => setLicenseType((v ?? "") as "" | "SHARED" | "EXCLUSIVE")}>
+        <Select value={licenseType} onValueChange={(v) => setLicenseType(v ?? "")}>
           <SelectTrigger className="h-8 w-[140px] text-xs">
             <SelectValue placeholder="All Types">
               {licenseType === "SHARED" ? "Shared" : licenseType === "EXCLUSIVE" ? "Exclusive" : "All Types"}
