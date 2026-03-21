@@ -1,18 +1,99 @@
-// Prisma schema for Better Auth
-// learn more: https://better-auth.com/docs/concepts/database
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
-// NOTE: When using mysql or sqlserver, uncomment the //@db.Text annotations in model Account below
-// Further reading:
-// https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  FREE_USER
+  PRO_MEMBER
+}
+
+enum Difficulty {
+  BEGINNER
+  FAST_LAUNCH
+  ADVANCED
+}
+
+enum LicenseType {
+  SHARED
+  EXCLUSIVE
+}
+
+model User {
+  id                   String             @id
+  name                 String
+  email                String
+  emailVerified        Boolean            @default(false)
+  image                String?
+  role                 UserRole           @default(FREE_USER)
+  freeLicenseAvailable Int                @default(1)
+  onboardingCompleted  Boolean            @default(false)
+  experienceLevel      String? // "first_time", "some_experience", "experienced"
+  sellingPlatforms     String[]           @default([])
+  interestedNiches     String[]           @default([])
+  primaryGoal          String? // "side_income", "full_time", "learn", "grow_existing"
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @default(now()) @updatedAt
+  sessions             Session[]
+  accounts             Account[]
+  posts                Post[]
+  licenses             UserLicense[]
+  savedProducts        SavedProduct[]
+  integrations         Integration[]
+  generatedContent     GeneratedContent[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
 }
 
 model Post {
@@ -27,63 +108,104 @@ model Post {
   @@index([name])
 }
 
-model User {
-  id            String    @id
-  name          String //@db.Text
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String? //@db.Text
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
-  sessions      Session[]
-  accounts      Account[]
-  posts         Post[]
+model Product {
+  id                    String     @id @default(cuid())
+  name                  String
+  slug                  String     @unique
+  description           String
+  shortDescription      String
+  image                 String?
+  price                 Float      @default(0)
+  isFreeProduct         Boolean    @default(false)
+  totalLicenses         Int        @default(100)
+  claimedLicenses       Int        @default(0)
+  category              String     @default("general")
+  featured              Boolean    @default(false)
+  difficulty            Difficulty @default(BEGINNER)
+  sellingPlatforms      String[]   @default([])
+  demandLabel           String? // "trending", "high_demand", "beginner_friendly", "new"
+  exclusiveLicensePrice Float?
+  exclusiveLicenseSold  Boolean    @default(false)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
 
-  @@unique([email])
-  @@map("user")
+  assets   ProductAsset[]
+  licenses UserLicense[]
+  savedBy  SavedProduct[]
+
+  @@index([slug])
+  @@index([isFreeProduct])
+  @@index([category])
+  @@index([difficulty])
 }
 
-model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
+model ProductAsset {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name      String
+  type      String // product_file, canva_template, marketing_kit, sales_copy, branding_kit
+  fileUrl   String
+  fileSize  String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ipAddress String? //@db.Text
-  userAgent String? //@db.Text
+
+  @@index([productId])
+}
+
+model UserLicense {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  licenseType LicenseType @default(SHARED)
+  claimedAt   DateTime    @default(now())
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@index([productId])
+}
+
+model Integration {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider     String // "lightfunnels", "shopify", etc.
+  accessToken  String
+  refreshToken String?
+  metadata     String? // JSON — e.g. { "shop": "mystore.myshopify.com" }
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([userId, provider])
+  @@index([userId])
+  @@map("integration")
+}
+
+model GeneratedContent {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productName String
+  contentType String
+  tone        String
+  platform    String?
+  content     String
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@map("generated_content")
+}
+
+model SavedProduct {
+  id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  savedAt   DateTime @default(now())
 
-  @@unique([token])
-  @@map("session")
-}
-
-model Account {
-  id                    String    @id
-  accountId             String //@db.Text
-  providerId            String //@db.Text
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String? //@db.Text
-  refreshToken          String? //@db.Text
-  idToken               String? //@db.Text
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String? //@db.Text
-  password              String? //@db.Text
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
-
-  @@map("account")
-}
-
-model Verification {
-  id         String   @id
-  identifier String //@db.Text
-  value      String //@db.Text
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
-
-  @@map("verification")
+  @@unique([userId, productId])
+  @@index([userId])
 }

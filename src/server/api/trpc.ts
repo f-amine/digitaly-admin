@@ -13,6 +13,7 @@ import { ZodError } from "zod";
 
 import { auth } from "~/server/better-auth";
 import { db } from "~/server/db";
+import { env } from "~/env";
 
 /**
  * 1. CONTEXT
@@ -127,8 +128,18 @@ export const protectedProcedure = t.procedure
     }
     return next({
       ctx: {
-        // infers the `session` as non-nullable
         session: { ...ctx.session, user: ctx.session.user },
       },
     });
   });
+
+/**
+ * Admin procedure — requires authenticated user with admin email
+ */
+export const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
+  const adminEmails = env.ADMIN_EMAILS.split(",").map((e) => e.trim().toLowerCase());
+  if (!adminEmails.includes(ctx.session.user.email.toLowerCase())) {
+    throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
+  }
+  return next({ ctx });
+});
