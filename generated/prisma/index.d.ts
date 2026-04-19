@@ -7735,6 +7735,7 @@ export namespace Prisma {
     featured: number
     difficulty: number
     sellingPlatforms: number
+    languages: number
     demandLabel: number
     exclusiveLicensePrice: number
     exclusiveLicenseSold: number
@@ -7815,6 +7816,7 @@ export namespace Prisma {
     featured?: true
     difficulty?: true
     sellingPlatforms?: true
+    languages?: true
     demandLabel?: true
     exclusiveLicensePrice?: true
     exclusiveLicenseSold?: true
@@ -7924,6 +7926,7 @@ export namespace Prisma {
     featured: boolean
     difficulty: $Enums.Difficulty
     sellingPlatforms: string[]
+    languages: string[]
     demandLabel: string | null
     exclusiveLicensePrice: number | null
     exclusiveLicenseSold: boolean
@@ -7965,6 +7968,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: boolean
     sellingPlatforms?: boolean
+    languages?: boolean
     demandLabel?: boolean
     exclusiveLicensePrice?: boolean
     exclusiveLicenseSold?: boolean
@@ -7991,6 +7995,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: boolean
     sellingPlatforms?: boolean
+    languages?: boolean
     demandLabel?: boolean
     exclusiveLicensePrice?: boolean
     exclusiveLicenseSold?: boolean
@@ -8013,6 +8018,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: boolean
     sellingPlatforms?: boolean
+    languages?: boolean
     demandLabel?: boolean
     exclusiveLicensePrice?: boolean
     exclusiveLicenseSold?: boolean
@@ -8035,6 +8041,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: boolean
     sellingPlatforms?: boolean
+    languages?: boolean
     demandLabel?: boolean
     exclusiveLicensePrice?: boolean
     exclusiveLicenseSold?: boolean
@@ -8042,7 +8049,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "shortDescription" | "image" | "price" | "isFreeProduct" | "totalLicenses" | "claimedLicenses" | "category" | "featured" | "difficulty" | "sellingPlatforms" | "demandLabel" | "exclusiveLicensePrice" | "exclusiveLicenseSold" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "shortDescription" | "image" | "price" | "isFreeProduct" | "totalLicenses" | "claimedLicenses" | "category" | "featured" | "difficulty" | "sellingPlatforms" | "languages" | "demandLabel" | "exclusiveLicensePrice" | "exclusiveLicenseSold" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assets?: boolean | Product$assetsArgs<ExtArgs>
     licenses?: boolean | Product$licensesArgs<ExtArgs>
@@ -8074,6 +8081,7 @@ export namespace Prisma {
       featured: boolean
       difficulty: $Enums.Difficulty
       sellingPlatforms: string[]
+      languages: string[]
       demandLabel: string | null
       exclusiveLicensePrice: number | null
       exclusiveLicenseSold: boolean
@@ -8519,6 +8527,7 @@ export namespace Prisma {
     readonly featured: FieldRef<"Product", 'Boolean'>
     readonly difficulty: FieldRef<"Product", 'Difficulty'>
     readonly sellingPlatforms: FieldRef<"Product", 'String[]'>
+    readonly languages: FieldRef<"Product", 'String[]'>
     readonly demandLabel: FieldRef<"Product", 'String'>
     readonly exclusiveLicensePrice: FieldRef<"Product", 'Float'>
     readonly exclusiveLicenseSold: FieldRef<"Product", 'Boolean'>
@@ -14517,6 +14526,7 @@ export namespace Prisma {
     featured: 'featured',
     difficulty: 'difficulty',
     sellingPlatforms: 'sellingPlatforms',
+    languages: 'languages',
     demandLabel: 'demandLabel',
     exclusiveLicensePrice: 'exclusiveLicensePrice',
     exclusiveLicenseSold: 'exclusiveLicenseSold',
@@ -15142,6 +15152,7 @@ export namespace Prisma {
     featured?: BoolFilter<"Product"> | boolean
     difficulty?: EnumDifficultyFilter<"Product"> | $Enums.Difficulty
     sellingPlatforms?: StringNullableListFilter<"Product">
+    languages?: StringNullableListFilter<"Product">
     demandLabel?: StringNullableFilter<"Product"> | string | null
     exclusiveLicensePrice?: FloatNullableFilter<"Product"> | number | null
     exclusiveLicenseSold?: BoolFilter<"Product"> | boolean
@@ -15167,6 +15178,7 @@ export namespace Prisma {
     featured?: SortOrder
     difficulty?: SortOrder
     sellingPlatforms?: SortOrder
+    languages?: SortOrder
     demandLabel?: SortOrderInput | SortOrder
     exclusiveLicensePrice?: SortOrderInput | SortOrder
     exclusiveLicenseSold?: SortOrder
@@ -15195,6 +15207,7 @@ export namespace Prisma {
     featured?: BoolFilter<"Product"> | boolean
     difficulty?: EnumDifficultyFilter<"Product"> | $Enums.Difficulty
     sellingPlatforms?: StringNullableListFilter<"Product">
+    languages?: StringNullableListFilter<"Product">
     demandLabel?: StringNullableFilter<"Product"> | string | null
     exclusiveLicensePrice?: FloatNullableFilter<"Product"> | number | null
     exclusiveLicenseSold?: BoolFilter<"Product"> | boolean
@@ -15220,6 +15233,7 @@ export namespace Prisma {
     featured?: SortOrder
     difficulty?: SortOrder
     sellingPlatforms?: SortOrder
+    languages?: SortOrder
     demandLabel?: SortOrderInput | SortOrder
     exclusiveLicensePrice?: SortOrderInput | SortOrder
     exclusiveLicenseSold?: SortOrder
@@ -15250,6 +15264,7 @@ export namespace Prisma {
     featured?: BoolWithAggregatesFilter<"Product"> | boolean
     difficulty?: EnumDifficultyWithAggregatesFilter<"Product"> | $Enums.Difficulty
     sellingPlatforms?: StringNullableListFilter<"Product">
+    languages?: StringNullableListFilter<"Product">
     demandLabel?: StringNullableWithAggregatesFilter<"Product"> | string | null
     exclusiveLicensePrice?: FloatNullableWithAggregatesFilter<"Product"> | number | null
     exclusiveLicenseSold?: BoolWithAggregatesFilter<"Product"> | boolean
@@ -16048,6 +16063,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: $Enums.Difficulty
     sellingPlatforms?: ProductCreatesellingPlatformsInput | string[]
+    languages?: ProductCreatelanguagesInput | string[]
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
@@ -16073,6 +16089,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: $Enums.Difficulty
     sellingPlatforms?: ProductCreatesellingPlatformsInput | string[]
+    languages?: ProductCreatelanguagesInput | string[]
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
@@ -16098,6 +16115,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
@@ -16123,6 +16141,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
@@ -16148,6 +16167,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: $Enums.Difficulty
     sellingPlatforms?: ProductCreatesellingPlatformsInput | string[]
+    languages?: ProductCreatelanguagesInput | string[]
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
@@ -16170,6 +16190,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
@@ -16192,6 +16213,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
@@ -17030,6 +17052,7 @@ export namespace Prisma {
     featured?: SortOrder
     difficulty?: SortOrder
     sellingPlatforms?: SortOrder
+    languages?: SortOrder
     demandLabel?: SortOrder
     exclusiveLicensePrice?: SortOrder
     exclusiveLicenseSold?: SortOrder
@@ -17706,6 +17729,10 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type ProductCreatelanguagesInput = {
+    set: string[]
+  }
+
   export type ProductAssetCreateNestedManyWithoutProductInput = {
     create?: XOR<ProductAssetCreateWithoutProductInput, ProductAssetUncheckedCreateWithoutProductInput> | ProductAssetCreateWithoutProductInput[] | ProductAssetUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductAssetCreateOrConnectWithoutProductInput | ProductAssetCreateOrConnectWithoutProductInput[]
@@ -17761,6 +17788,11 @@ export namespace Prisma {
   }
 
   export type ProductUpdatesellingPlatformsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ProductUpdatelanguagesInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -19109,6 +19141,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: $Enums.Difficulty
     sellingPlatforms?: ProductCreatesellingPlatformsInput | string[]
+    languages?: ProductCreatelanguagesInput | string[]
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
@@ -19133,6 +19166,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: $Enums.Difficulty
     sellingPlatforms?: ProductCreatesellingPlatformsInput | string[]
+    languages?: ProductCreatelanguagesInput | string[]
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
@@ -19173,6 +19207,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
@@ -19197,6 +19232,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
@@ -19272,6 +19308,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: $Enums.Difficulty
     sellingPlatforms?: ProductCreatesellingPlatformsInput | string[]
+    languages?: ProductCreatelanguagesInput | string[]
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
@@ -19296,6 +19333,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: $Enums.Difficulty
     sellingPlatforms?: ProductCreatesellingPlatformsInput | string[]
+    languages?: ProductCreatelanguagesInput | string[]
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
@@ -19393,6 +19431,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
@@ -19417,6 +19456,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
@@ -19708,6 +19748,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: $Enums.Difficulty
     sellingPlatforms?: ProductCreatesellingPlatformsInput | string[]
+    languages?: ProductCreatelanguagesInput | string[]
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
@@ -19732,6 +19773,7 @@ export namespace Prisma {
     featured?: boolean
     difficulty?: $Enums.Difficulty
     sellingPlatforms?: ProductCreatesellingPlatformsInput | string[]
+    languages?: ProductCreatelanguagesInput | string[]
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
@@ -19829,6 +19871,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
@@ -19853,6 +19896,7 @@ export namespace Prisma {
     featured?: BoolFieldUpdateOperationsInput | boolean
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     sellingPlatforms?: ProductUpdatesellingPlatformsInput | string[]
+    languages?: ProductUpdatelanguagesInput | string[]
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean

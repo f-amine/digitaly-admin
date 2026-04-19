@@ -197,6 +197,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   featured: 'featured',
   difficulty: 'difficulty',
   sellingPlatforms: 'sellingPlatforms',
+  languages: 'languages',
   demandLabel: 'demandLabel',
   exclusiveLicensePrice: 'exclusiveLicensePrice',
   exclusiveLicenseSold: 'exclusiveLicenseSold',

@@ -70,6 +70,14 @@ const DEMAND_LABELS = [
   { value: "new", label: "New" },
 ];
 
+const LANGUAGES = [
+  { value: "en", label: "English", flag: "🇬🇧" },
+  { value: "ar", label: "Arabic", flag: "🇸🇦" },
+  { value: "fr", label: "French", flag: "🇫🇷" },
+  { value: "es", label: "Spanish", flag: "🇪🇸" },
+  { value: "tr", label: "Turkish", flag: "🇹🇷" },
+];
+
 const ASSET_TYPES = [
   { value: "product_file", label: "Product File" },
   { value: "canva_template", label: "Canva Template" },
@@ -116,7 +124,11 @@ export default function EditProductPage() {
   const [difficulty, setDifficulty] =
     useState<(typeof DIFFICULTIES)[number]>("BEGINNER");
   const [sellingPlatforms, setSellingPlatforms] = useState<string[]>([]);
+  const [languages, setLanguages] = useState<string[]>([]);
   const [demandLabel, setDemandLabel] = useState("");
+  const [claimedLicenses, setClaimedLicenses] = useState("0");
+  const [exclusiveLicensePrice, setExclusiveLicensePrice] = useState("");
+  const [exclusiveLicenseSold, setExclusiveLicenseSold] = useState(false);
   const [initialized, setInitialized] = useState(false);
   const [coverUploading, setCoverUploading] = useState(false);
 
@@ -139,7 +151,15 @@ export default function EditProductPage() {
       setFeatured(product.data.featured);
       setDifficulty(product.data.difficulty as (typeof DIFFICULTIES)[number]);
       setSellingPlatforms(product.data.sellingPlatforms);
+      setLanguages(product.data.languages ?? []);
       setDemandLabel(product.data.demandLabel ?? "");
+      setClaimedLicenses(product.data.claimedLicenses.toString());
+      setExclusiveLicensePrice(
+        product.data.exclusiveLicensePrice != null
+          ? product.data.exclusiveLicensePrice.toString()
+          : "",
+      );
+      setExclusiveLicenseSold(product.data.exclusiveLicenseSold ?? false);
       setInitialized(true);
     }
   }, [product.data, initialized]);
@@ -215,6 +235,12 @@ export default function EditProductPage() {
     );
   };
 
+  const toggleLanguage = (lang: string) => {
+    setLanguages((prev) =>
+      prev.includes(lang) ? prev.filter((l) => l !== lang) : [...prev, lang],
+    );
+  };
+
   const handleCoverUpload = async (file: File) => {
     setCoverUploading(true);
     try {
@@ -227,6 +253,10 @@ export default function EditProductPage() {
           productId: slug ?? productId,
         }),
       });
+      if (!initRes.ok) {
+        const err = await initRes.text();
+        throw new Error(`Initiate upload failed (${initRes.status}): ${err}`);
+      }
       const initData: { uploadId: string; key: string } = await initRes.json() as { uploadId: string; key: string };
 
       const presignRes = await fetch("/api/upload/presign", {
@@ -234,13 +264,23 @@ export default function EditProductPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key: initData.key, uploadId: initData.uploadId, partNumber: 1 }),
       });
+      if (!presignRes.ok) {
+        const err = await presignRes.text();
+        throw new Error(`Presign failed (${presignRes.status}): ${err}`);
+      }
       const presignData: { presignedUrl: string } = await presignRes.json() as { presignedUrl: string };
 
       const uploadRes = await fetch(presignData.presignedUrl, {
         method: "PUT",
         body: file,
       });
+      if (!uploadRes.ok) {
+        throw new Error(`R2 upload failed (${uploadRes.status})`);
+      }
       const etag = uploadRes.headers.get("ETag");
+      if (!etag) {
+        throw new Error("R2 upload succeeded but ETag header missing — check R2 CORS config (Access-Control-Expose-Headers must include ETag)");
+      }
 
       const completeRes = await fetch("/api/upload/complete", {
         method: "POST",
@@ -251,11 +291,15 @@ export default function EditProductPage() {
           parts: [{ ETag: etag, PartNumber: 1 }],
         }),
       });
+      if (!completeRes.ok) {
+        const err = await completeRes.text();
+        throw new Error(`Complete upload failed (${completeRes.status}): ${err}`);
+      }
       const completeData: { url: string } = await completeRes.json() as { url: string };
       setImage(completeData.url);
       toast.success("Cover image uploaded");
-    } catch {
-      toast.error("Failed to upload cover image");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to upload cover image");
     } finally {
       setCoverUploading(false);
     }
@@ -274,11 +318,18 @@ export default function EditProductPage() {
         price: parseFloat(price) || 0,
         isFreeProduct,
         totalLicenses: parseInt(totalLicenses) || 100,
+        claimedLicenses: parseInt(claimedLicenses) || 0,
         category,
         featured,
         difficulty,
         sellingPlatforms,
-        demandLabel: demandLabel || undefined,
+        languages,
+        demandLabel: demandLabel || null,
+        exclusiveLicensePrice:
+          exclusiveLicensePrice.trim() === ""
+            ? null
+            : parseFloat(exclusiveLicensePrice),
+        exclusiveLicenseSold,
       },
     });
   };
@@ -487,6 +538,20 @@ export default function EditProductPage() {
                   </div>
                 </div>
 
+                <div className="grid gap-2">
+                  <Label htmlFor="claimedLicenses">Claimed Licenses</Label>
+                  <Input
+                    id="claimedLicenses"
+                    type="number"
+                    min="0"
+                    value={claimedLicenses}
+                    onChange={(e) => setClaimedLicenses(e.target.value)}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Admin override. Use for scarcity seeding.
+                  </p>
+                </div>
+
                 <div className="flex items-center gap-3">
                   <Switch
                     id="isFreeProduct"
@@ -503,6 +568,37 @@ export default function EditProductPage() {
                     onCheckedChange={setFeatured}
                   />
                   <Label htmlFor="featured">Featured</Label>
+                </div>
+
+                <Separator />
+
+                <div className="grid gap-2">
+                  <Label htmlFor="exclusiveLicensePrice">
+                    Exclusive License Price ($)
+                  </Label>
+                  <Input
+                    id="exclusiveLicensePrice"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value={exclusiveLicensePrice}
+                    onChange={(e) => setExclusiveLicensePrice(e.target.value)}
+                    placeholder="Leave empty to disable"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    One-time buyout price for full ownership.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Switch
+                    id="exclusiveLicenseSold"
+                    checked={exclusiveLicenseSold}
+                    onCheckedChange={setExclusiveLicenseSold}
+                  />
+                  <Label htmlFor="exclusiveLicenseSold">
+                    Exclusive License Sold
+                  </Label>
                 </div>
               </CardContent>
             </Card>
@@ -585,6 +681,27 @@ export default function EditProductPage() {
                           }
                         />
                         {platform.label}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <Separator />
+
+                <div className="grid gap-2">
+                  <Label>Languages</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {LANGUAGES.map((lang) => (
+                      <label
+                        key={lang.value}
+                        className="flex items-center gap-2 text-sm"
+                      >
+                        <Checkbox
+                          checked={languages.includes(lang.value)}
+                          onCheckedChange={() => toggleLanguage(lang.value)}
+                        />
+                        <span>{lang.flag}</span>
+                        {lang.label}
                       </label>
                     ))}
                   </div>

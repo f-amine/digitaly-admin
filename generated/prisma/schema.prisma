@@ -123,6 +123,7 @@ model Product {
   featured              Boolean    @default(false)
   difficulty            Difficulty @default(BEGINNER)
   sellingPlatforms      String[]   @default([])
+  languages             String[]   @default([])
   demandLabel           String? // "trending", "high_demand", "beginner_friendly", "new"
   exclusiveLicensePrice Float?
   exclusiveLicenseSold  Boolean    @default(false)

@@ -68,14 +68,17 @@ export const productsRouter = createTRPCRouter({
         price: z.number().min(0).default(0),
         isFreeProduct: z.boolean().default(false),
         totalLicenses: z.number().min(1).default(100),
+        claimedLicenses: z.number().int().min(0).default(0),
         category: z.string().default("general"),
         featured: z.boolean().default(false),
         difficulty: z
           .enum(["BEGINNER", "FAST_LAUNCH", "ADVANCED"])
           .default("BEGINNER"),
         sellingPlatforms: z.array(z.string()).default([]),
-        demandLabel: z.string().optional(),
-        exclusiveLicensePrice: z.number().optional(),
+        languages: z.array(z.string()).default([]),
+        demandLabel: z.string().optional().nullable(),
+        exclusiveLicensePrice: z.number().optional().nullable(),
+        exclusiveLicenseSold: z.boolean().default(false),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -95,14 +98,17 @@ export const productsRouter = createTRPCRouter({
           price: z.number().min(0).optional(),
           isFreeProduct: z.boolean().optional(),
           totalLicenses: z.number().min(1).optional(),
+          claimedLicenses: z.number().int().min(0).optional(),
           category: z.string().optional(),
           featured: z.boolean().optional(),
           difficulty: z
             .enum(["BEGINNER", "FAST_LAUNCH", "ADVANCED"])
             .optional(),
           sellingPlatforms: z.array(z.string()).optional(),
-          demandLabel: z.string().optional(),
-          exclusiveLicensePrice: z.number().optional(),
+          languages: z.array(z.string()).optional(),
+          demandLabel: z.string().optional().nullable(),
+          exclusiveLicensePrice: z.number().optional().nullable(),
+          exclusiveLicenseSold: z.boolean().optional(),
         }),
       }),
     )
