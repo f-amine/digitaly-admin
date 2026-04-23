@@ -129,7 +129,7 @@ export default function ProductsPage() {
               <TableRow className="hover:bg-transparent">
                 <TableHead className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Name</TableHead>
                 <TableHead className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Category</TableHead>
-                <TableHead className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium text-right">Price</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium text-right">Tier</TableHead>
                 <TableHead className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Licenses</TableHead>
                 <TableHead className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Featured</TableHead>
                 <TableHead className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Difficulty</TableHead>
@@ -163,9 +163,7 @@ export default function ProductsPage() {
                       </span>
                     </TableCell>
                     <TableCell className="text-right font-mono text-xs tabular-nums">
-                      {product.isFreeProduct
-                        ? "Free"
-                        : `$${product.price.toFixed(2)}`}
+                      {product.isFreeProduct ? "Free" : "Pro"}
                     </TableCell>
                     <TableCell className="text-xs">
                       <div className="flex items-center gap-1.5">

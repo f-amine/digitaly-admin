@@ -32,6 +32,9 @@ model User {
   image         String?
   role          UserRole  @default(FREE_USER)
   freeLicenseAvailable Int @default(1)
+  kitsClaimedThisPeriod Int @default(0)
+  kitPeriodStart        DateTime?
+  extraKits             Int @default(0)
   onboardingCompleted  Boolean @default(false)
   experienceLevel      String?  // "first_time", "some_experience", "experienced"
   sellingPlatforms     String[] @default([])
@@ -115,7 +118,6 @@ model Product {
   description     String
   shortDescription String
   image           String?
-  price           Float      @default(0)
   isFreeProduct   Boolean    @default(false)
   totalLicenses   Int        @default(100)
   claimedLicenses Int        @default(0)

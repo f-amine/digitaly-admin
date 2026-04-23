@@ -1960,10 +1960,14 @@ export namespace Prisma {
 
   export type UserAvgAggregateOutputType = {
     freeLicenseAvailable: number | null
+    kitsClaimedThisPeriod: number | null
+    extraKits: number | null
   }
 
   export type UserSumAggregateOutputType = {
     freeLicenseAvailable: number | null
+    kitsClaimedThisPeriod: number | null
+    extraKits: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1974,6 +1978,9 @@ export namespace Prisma {
     image: string | null
     role: $Enums.UserRole | null
     freeLicenseAvailable: number | null
+    kitsClaimedThisPeriod: number | null
+    kitPeriodStart: Date | null
+    extraKits: number | null
     onboardingCompleted: boolean | null
     experienceLevel: string | null
     primaryGoal: string | null
@@ -1989,6 +1996,9 @@ export namespace Prisma {
     image: string | null
     role: $Enums.UserRole | null
     freeLicenseAvailable: number | null
+    kitsClaimedThisPeriod: number | null
+    kitPeriodStart: Date | null
+    extraKits: number | null
     onboardingCompleted: boolean | null
     experienceLevel: string | null
     primaryGoal: string | null
@@ -2004,6 +2014,9 @@ export namespace Prisma {
     image: number
     role: number
     freeLicenseAvailable: number
+    kitsClaimedThisPeriod: number
+    kitPeriodStart: number
+    extraKits: number
     onboardingCompleted: number
     experienceLevel: number
     sellingPlatforms: number
@@ -2017,10 +2030,14 @@ export namespace Prisma {
 
   export type UserAvgAggregateInputType = {
     freeLicenseAvailable?: true
+    kitsClaimedThisPeriod?: true
+    extraKits?: true
   }
 
   export type UserSumAggregateInputType = {
     freeLicenseAvailable?: true
+    kitsClaimedThisPeriod?: true
+    extraKits?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -2031,6 +2048,9 @@ export namespace Prisma {
     image?: true
     role?: true
     freeLicenseAvailable?: true
+    kitsClaimedThisPeriod?: true
+    kitPeriodStart?: true
+    extraKits?: true
     onboardingCompleted?: true
     experienceLevel?: true
     primaryGoal?: true
@@ -2046,6 +2066,9 @@ export namespace Prisma {
     image?: true
     role?: true
     freeLicenseAvailable?: true
+    kitsClaimedThisPeriod?: true
+    kitPeriodStart?: true
+    extraKits?: true
     onboardingCompleted?: true
     experienceLevel?: true
     primaryGoal?: true
@@ -2061,6 +2084,9 @@ export namespace Prisma {
     image?: true
     role?: true
     freeLicenseAvailable?: true
+    kitsClaimedThisPeriod?: true
+    kitPeriodStart?: true
+    extraKits?: true
     onboardingCompleted?: true
     experienceLevel?: true
     sellingPlatforms?: true
@@ -2165,6 +2191,9 @@ export namespace Prisma {
     image: string | null
     role: $Enums.UserRole
     freeLicenseAvailable: number
+    kitsClaimedThisPeriod: number
+    kitPeriodStart: Date | null
+    extraKits: number
     onboardingCompleted: boolean
     experienceLevel: string | null
     sellingPlatforms: string[]
@@ -2201,6 +2230,9 @@ export namespace Prisma {
     image?: boolean
     role?: boolean
     freeLicenseAvailable?: boolean
+    kitsClaimedThisPeriod?: boolean
+    kitPeriodStart?: boolean
+    extraKits?: boolean
     onboardingCompleted?: boolean
     experienceLevel?: boolean
     sellingPlatforms?: boolean
@@ -2226,6 +2258,9 @@ export namespace Prisma {
     image?: boolean
     role?: boolean
     freeLicenseAvailable?: boolean
+    kitsClaimedThisPeriod?: boolean
+    kitPeriodStart?: boolean
+    extraKits?: boolean
     onboardingCompleted?: boolean
     experienceLevel?: boolean
     sellingPlatforms?: boolean
@@ -2243,6 +2278,9 @@ export namespace Prisma {
     image?: boolean
     role?: boolean
     freeLicenseAvailable?: boolean
+    kitsClaimedThisPeriod?: boolean
+    kitPeriodStart?: boolean
+    extraKits?: boolean
     onboardingCompleted?: boolean
     experienceLevel?: boolean
     sellingPlatforms?: boolean
@@ -2260,6 +2298,9 @@ export namespace Prisma {
     image?: boolean
     role?: boolean
     freeLicenseAvailable?: boolean
+    kitsClaimedThisPeriod?: boolean
+    kitPeriodStart?: boolean
+    extraKits?: boolean
     onboardingCompleted?: boolean
     experienceLevel?: boolean
     sellingPlatforms?: boolean
@@ -2269,7 +2310,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "role" | "freeLicenseAvailable" | "onboardingCompleted" | "experienceLevel" | "sellingPlatforms" | "interestedNiches" | "primaryGoal" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "role" | "freeLicenseAvailable" | "kitsClaimedThisPeriod" | "kitPeriodStart" | "extraKits" | "onboardingCompleted" | "experienceLevel" | "sellingPlatforms" | "interestedNiches" | "primaryGoal" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
@@ -2302,6 +2343,9 @@ export namespace Prisma {
       image: string | null
       role: $Enums.UserRole
       freeLicenseAvailable: number
+      kitsClaimedThisPeriod: number
+      kitPeriodStart: Date | null
+      extraKits: number
       onboardingCompleted: boolean
       experienceLevel: string | null
       sellingPlatforms: string[]
@@ -2746,6 +2790,9 @@ export namespace Prisma {
     readonly image: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
     readonly freeLicenseAvailable: FieldRef<"User", 'Int'>
+    readonly kitsClaimedThisPeriod: FieldRef<"User", 'Int'>
+    readonly kitPeriodStart: FieldRef<"User", 'DateTime'>
+    readonly extraKits: FieldRef<"User", 'Int'>
     readonly onboardingCompleted: FieldRef<"User", 'Boolean'>
     readonly experienceLevel: FieldRef<"User", 'String'>
     readonly sellingPlatforms: FieldRef<"User", 'String[]'>
@@ -7665,14 +7712,12 @@ export namespace Prisma {
   }
 
   export type ProductAvgAggregateOutputType = {
-    price: number | null
     totalLicenses: number | null
     claimedLicenses: number | null
     exclusiveLicensePrice: number | null
   }
 
   export type ProductSumAggregateOutputType = {
-    price: number | null
     totalLicenses: number | null
     claimedLicenses: number | null
     exclusiveLicensePrice: number | null
@@ -7685,7 +7730,6 @@ export namespace Prisma {
     description: string | null
     shortDescription: string | null
     image: string | null
-    price: number | null
     isFreeProduct: boolean | null
     totalLicenses: number | null
     claimedLicenses: number | null
@@ -7706,7 +7750,6 @@ export namespace Prisma {
     description: string | null
     shortDescription: string | null
     image: string | null
-    price: number | null
     isFreeProduct: boolean | null
     totalLicenses: number | null
     claimedLicenses: number | null
@@ -7727,7 +7770,6 @@ export namespace Prisma {
     description: number
     shortDescription: number
     image: number
-    price: number
     isFreeProduct: number
     totalLicenses: number
     claimedLicenses: number
@@ -7746,14 +7788,12 @@ export namespace Prisma {
 
 
   export type ProductAvgAggregateInputType = {
-    price?: true
     totalLicenses?: true
     claimedLicenses?: true
     exclusiveLicensePrice?: true
   }
 
   export type ProductSumAggregateInputType = {
-    price?: true
     totalLicenses?: true
     claimedLicenses?: true
     exclusiveLicensePrice?: true
@@ -7766,7 +7806,6 @@ export namespace Prisma {
     description?: true
     shortDescription?: true
     image?: true
-    price?: true
     isFreeProduct?: true
     totalLicenses?: true
     claimedLicenses?: true
@@ -7787,7 +7826,6 @@ export namespace Prisma {
     description?: true
     shortDescription?: true
     image?: true
-    price?: true
     isFreeProduct?: true
     totalLicenses?: true
     claimedLicenses?: true
@@ -7808,7 +7846,6 @@ export namespace Prisma {
     description?: true
     shortDescription?: true
     image?: true
-    price?: true
     isFreeProduct?: true
     totalLicenses?: true
     claimedLicenses?: true
@@ -7918,7 +7955,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image: string | null
-    price: number
     isFreeProduct: boolean
     totalLicenses: number
     claimedLicenses: number
@@ -7960,7 +7996,6 @@ export namespace Prisma {
     description?: boolean
     shortDescription?: boolean
     image?: boolean
-    price?: boolean
     isFreeProduct?: boolean
     totalLicenses?: boolean
     claimedLicenses?: boolean
@@ -7987,7 +8022,6 @@ export namespace Prisma {
     description?: boolean
     shortDescription?: boolean
     image?: boolean
-    price?: boolean
     isFreeProduct?: boolean
     totalLicenses?: boolean
     claimedLicenses?: boolean
@@ -8010,7 +8044,6 @@ export namespace Prisma {
     description?: boolean
     shortDescription?: boolean
     image?: boolean
-    price?: boolean
     isFreeProduct?: boolean
     totalLicenses?: boolean
     claimedLicenses?: boolean
@@ -8033,7 +8066,6 @@ export namespace Prisma {
     description?: boolean
     shortDescription?: boolean
     image?: boolean
-    price?: boolean
     isFreeProduct?: boolean
     totalLicenses?: boolean
     claimedLicenses?: boolean
@@ -8049,7 +8081,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "shortDescription" | "image" | "price" | "isFreeProduct" | "totalLicenses" | "claimedLicenses" | "category" | "featured" | "difficulty" | "sellingPlatforms" | "languages" | "demandLabel" | "exclusiveLicensePrice" | "exclusiveLicenseSold" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "shortDescription" | "image" | "isFreeProduct" | "totalLicenses" | "claimedLicenses" | "category" | "featured" | "difficulty" | "sellingPlatforms" | "languages" | "demandLabel" | "exclusiveLicensePrice" | "exclusiveLicenseSold" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assets?: boolean | Product$assetsArgs<ExtArgs>
     licenses?: boolean | Product$licensesArgs<ExtArgs>
@@ -8073,7 +8105,6 @@ export namespace Prisma {
       description: string
       shortDescription: string
       image: string | null
-      price: number
       isFreeProduct: boolean
       totalLicenses: number
       claimedLicenses: number
@@ -8519,7 +8550,6 @@ export namespace Prisma {
     readonly description: FieldRef<"Product", 'String'>
     readonly shortDescription: FieldRef<"Product", 'String'>
     readonly image: FieldRef<"Product", 'String'>
-    readonly price: FieldRef<"Product", 'Float'>
     readonly isFreeProduct: FieldRef<"Product", 'Boolean'>
     readonly totalLicenses: FieldRef<"Product", 'Int'>
     readonly claimedLicenses: FieldRef<"Product", 'Int'>
@@ -14443,6 +14473,9 @@ export namespace Prisma {
     image: 'image',
     role: 'role',
     freeLicenseAvailable: 'freeLicenseAvailable',
+    kitsClaimedThisPeriod: 'kitsClaimedThisPeriod',
+    kitPeriodStart: 'kitPeriodStart',
+    extraKits: 'extraKits',
     onboardingCompleted: 'onboardingCompleted',
     experienceLevel: 'experienceLevel',
     sellingPlatforms: 'sellingPlatforms',
@@ -14518,7 +14551,6 @@ export namespace Prisma {
     description: 'description',
     shortDescription: 'shortDescription',
     image: 'image',
-    price: 'price',
     isFreeProduct: 'isFreeProduct',
     totalLicenses: 'totalLicenses',
     claimedLicenses: 'claimedLicenses',
@@ -14693,20 +14725,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Difficulty'
    */
   export type EnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty'>
@@ -14717,6 +14735,20 @@ export namespace Prisma {
    * Reference to a field of type 'Difficulty[]'
    */
   export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -14748,6 +14780,9 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     freeLicenseAvailable?: IntFilter<"User"> | number
+    kitsClaimedThisPeriod?: IntFilter<"User"> | number
+    kitPeriodStart?: DateTimeNullableFilter<"User"> | Date | string | null
+    extraKits?: IntFilter<"User"> | number
     onboardingCompleted?: BoolFilter<"User"> | boolean
     experienceLevel?: StringNullableFilter<"User"> | string | null
     sellingPlatforms?: StringNullableListFilter<"User">
@@ -14772,6 +14807,9 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     role?: SortOrder
     freeLicenseAvailable?: SortOrder
+    kitsClaimedThisPeriod?: SortOrder
+    kitPeriodStart?: SortOrderInput | SortOrder
+    extraKits?: SortOrder
     onboardingCompleted?: SortOrder
     experienceLevel?: SortOrderInput | SortOrder
     sellingPlatforms?: SortOrder
@@ -14799,6 +14837,9 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     freeLicenseAvailable?: IntFilter<"User"> | number
+    kitsClaimedThisPeriod?: IntFilter<"User"> | number
+    kitPeriodStart?: DateTimeNullableFilter<"User"> | Date | string | null
+    extraKits?: IntFilter<"User"> | number
     onboardingCompleted?: BoolFilter<"User"> | boolean
     experienceLevel?: StringNullableFilter<"User"> | string | null
     sellingPlatforms?: StringNullableListFilter<"User">
@@ -14823,6 +14864,9 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     role?: SortOrder
     freeLicenseAvailable?: SortOrder
+    kitsClaimedThisPeriod?: SortOrder
+    kitPeriodStart?: SortOrderInput | SortOrder
+    extraKits?: SortOrder
     onboardingCompleted?: SortOrder
     experienceLevel?: SortOrderInput | SortOrder
     sellingPlatforms?: SortOrder
@@ -14848,6 +14892,9 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     freeLicenseAvailable?: IntWithAggregatesFilter<"User"> | number
+    kitsClaimedThisPeriod?: IntWithAggregatesFilter<"User"> | number
+    kitPeriodStart?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    extraKits?: IntWithAggregatesFilter<"User"> | number
     onboardingCompleted?: BoolWithAggregatesFilter<"User"> | boolean
     experienceLevel?: StringNullableWithAggregatesFilter<"User"> | string | null
     sellingPlatforms?: StringNullableListFilter<"User">
@@ -15144,7 +15191,6 @@ export namespace Prisma {
     description?: StringFilter<"Product"> | string
     shortDescription?: StringFilter<"Product"> | string
     image?: StringNullableFilter<"Product"> | string | null
-    price?: FloatFilter<"Product"> | number
     isFreeProduct?: BoolFilter<"Product"> | boolean
     totalLicenses?: IntFilter<"Product"> | number
     claimedLicenses?: IntFilter<"Product"> | number
@@ -15170,7 +15216,6 @@ export namespace Prisma {
     description?: SortOrder
     shortDescription?: SortOrder
     image?: SortOrderInput | SortOrder
-    price?: SortOrder
     isFreeProduct?: SortOrder
     totalLicenses?: SortOrder
     claimedLicenses?: SortOrder
@@ -15199,7 +15244,6 @@ export namespace Prisma {
     description?: StringFilter<"Product"> | string
     shortDescription?: StringFilter<"Product"> | string
     image?: StringNullableFilter<"Product"> | string | null
-    price?: FloatFilter<"Product"> | number
     isFreeProduct?: BoolFilter<"Product"> | boolean
     totalLicenses?: IntFilter<"Product"> | number
     claimedLicenses?: IntFilter<"Product"> | number
@@ -15225,7 +15269,6 @@ export namespace Prisma {
     description?: SortOrder
     shortDescription?: SortOrder
     image?: SortOrderInput | SortOrder
-    price?: SortOrder
     isFreeProduct?: SortOrder
     totalLicenses?: SortOrder
     claimedLicenses?: SortOrder
@@ -15256,7 +15299,6 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Product"> | string
     shortDescription?: StringWithAggregatesFilter<"Product"> | string
     image?: StringNullableWithAggregatesFilter<"Product"> | string | null
-    price?: FloatWithAggregatesFilter<"Product"> | number
     isFreeProduct?: BoolWithAggregatesFilter<"Product"> | boolean
     totalLicenses?: IntWithAggregatesFilter<"Product"> | number
     claimedLicenses?: IntWithAggregatesFilter<"Product"> | number
@@ -15604,6 +15646,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -15628,6 +15673,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -15652,6 +15700,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -15676,6 +15727,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -15700,6 +15754,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -15717,6 +15774,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -15734,6 +15794,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -16055,7 +16118,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image?: string | null
-    price?: number
     isFreeProduct?: boolean
     totalLicenses?: number
     claimedLicenses?: number
@@ -16081,7 +16143,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image?: string | null
-    price?: number
     isFreeProduct?: boolean
     totalLicenses?: number
     claimedLicenses?: number
@@ -16107,7 +16168,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number
@@ -16133,7 +16193,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number
@@ -16159,7 +16218,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image?: string | null
-    price?: number
     isFreeProduct?: boolean
     totalLicenses?: number
     claimedLicenses?: number
@@ -16182,7 +16240,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number
@@ -16205,7 +16262,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number
@@ -16603,6 +16659,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     has?: string | StringFieldRefInput<$PrismaModel> | null
@@ -16705,6 +16772,9 @@ export namespace Prisma {
     image?: SortOrder
     role?: SortOrder
     freeLicenseAvailable?: SortOrder
+    kitsClaimedThisPeriod?: SortOrder
+    kitPeriodStart?: SortOrder
+    extraKits?: SortOrder
     onboardingCompleted?: SortOrder
     experienceLevel?: SortOrder
     sellingPlatforms?: SortOrder
@@ -16716,6 +16786,8 @@ export namespace Prisma {
 
   export type UserAvgOrderByAggregateInput = {
     freeLicenseAvailable?: SortOrder
+    kitsClaimedThisPeriod?: SortOrder
+    extraKits?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -16726,6 +16798,9 @@ export namespace Prisma {
     image?: SortOrder
     role?: SortOrder
     freeLicenseAvailable?: SortOrder
+    kitsClaimedThisPeriod?: SortOrder
+    kitPeriodStart?: SortOrder
+    extraKits?: SortOrder
     onboardingCompleted?: SortOrder
     experienceLevel?: SortOrder
     primaryGoal?: SortOrder
@@ -16741,6 +16816,9 @@ export namespace Prisma {
     image?: SortOrder
     role?: SortOrder
     freeLicenseAvailable?: SortOrder
+    kitsClaimedThisPeriod?: SortOrder
+    kitPeriodStart?: SortOrder
+    extraKits?: SortOrder
     onboardingCompleted?: SortOrder
     experienceLevel?: SortOrder
     primaryGoal?: SortOrder
@@ -16750,6 +16828,8 @@ export namespace Prisma {
 
   export type UserSumOrderByAggregateInput = {
     freeLicenseAvailable?: SortOrder
+    kitsClaimedThisPeriod?: SortOrder
+    extraKits?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -16822,6 +16902,20 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -16874,17 +16968,6 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type AccountCountOrderByAggregateInput = {
     id?: SortOrder
     accountId?: SortOrder
@@ -16931,20 +17014,6 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type VerificationCountOrderByAggregateInput = {
@@ -16998,17 +17067,6 @@ export namespace Prisma {
     createdById?: SortOrder
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type EnumDifficultyFilter<$PrismaModel = never> = {
     equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
@@ -17044,7 +17102,6 @@ export namespace Prisma {
     description?: SortOrder
     shortDescription?: SortOrder
     image?: SortOrder
-    price?: SortOrder
     isFreeProduct?: SortOrder
     totalLicenses?: SortOrder
     claimedLicenses?: SortOrder
@@ -17061,7 +17118,6 @@ export namespace Prisma {
   }
 
   export type ProductAvgOrderByAggregateInput = {
-    price?: SortOrder
     totalLicenses?: SortOrder
     claimedLicenses?: SortOrder
     exclusiveLicensePrice?: SortOrder
@@ -17074,7 +17130,6 @@ export namespace Prisma {
     description?: SortOrder
     shortDescription?: SortOrder
     image?: SortOrder
-    price?: SortOrder
     isFreeProduct?: SortOrder
     totalLicenses?: SortOrder
     claimedLicenses?: SortOrder
@@ -17095,7 +17150,6 @@ export namespace Prisma {
     description?: SortOrder
     shortDescription?: SortOrder
     image?: SortOrder
-    price?: SortOrder
     isFreeProduct?: SortOrder
     totalLicenses?: SortOrder
     claimedLicenses?: SortOrder
@@ -17110,26 +17164,9 @@ export namespace Prisma {
   }
 
   export type ProductSumOrderByAggregateInput = {
-    price?: SortOrder
     totalLicenses?: SortOrder
     claimedLicenses?: SortOrder
     exclusiveLicensePrice?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
@@ -17469,6 +17506,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type UserUpdatesellingPlatformsInput = {
     set?: string[]
     push?: string | string[]
@@ -17699,10 +17740,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
   export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -17773,14 +17810,6 @@ export namespace Prisma {
     connectOrCreate?: SavedProductCreateOrConnectWithoutProductInput | SavedProductCreateOrConnectWithoutProductInput[]
     createMany?: SavedProductCreateManyProductInputEnvelope
     connect?: SavedProductWhereUniqueInput | SavedProductWhereUniqueInput[]
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type EnumDifficultyFieldUpdateOperationsInput = {
@@ -18042,6 +18071,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -18143,31 +18183,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -18180,6 +18195,20 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
@@ -18198,22 +18227,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
@@ -18675,6 +18688,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -18698,6 +18714,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -18737,6 +18756,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -18760,6 +18782,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -18783,6 +18808,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -18806,6 +18834,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -18845,6 +18876,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -18868,6 +18902,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -18891,6 +18928,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -18914,6 +18954,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -18953,6 +18996,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -18976,6 +19022,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -19133,7 +19182,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image?: string | null
-    price?: number
     isFreeProduct?: boolean
     totalLicenses?: number
     claimedLicenses?: number
@@ -19158,7 +19206,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image?: string | null
-    price?: number
     isFreeProduct?: boolean
     totalLicenses?: number
     claimedLicenses?: number
@@ -19199,7 +19246,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number
@@ -19224,7 +19270,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number
@@ -19250,6 +19295,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -19273,6 +19321,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -19300,7 +19351,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image?: string | null
-    price?: number
     isFreeProduct?: boolean
     totalLicenses?: number
     claimedLicenses?: number
@@ -19325,7 +19375,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image?: string | null
-    price?: number
     isFreeProduct?: boolean
     totalLicenses?: number
     claimedLicenses?: number
@@ -19367,6 +19416,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -19390,6 +19442,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -19423,7 +19478,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number
@@ -19448,7 +19502,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number
@@ -19474,6 +19527,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -19497,6 +19553,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -19536,6 +19595,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -19559,6 +19621,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -19582,6 +19647,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -19605,6 +19673,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -19644,6 +19715,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -19667,6 +19741,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -19690,6 +19767,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -19713,6 +19793,9 @@ export namespace Prisma {
     image?: string | null
     role?: $Enums.UserRole
     freeLicenseAvailable?: number
+    kitsClaimedThisPeriod?: number
+    kitPeriodStart?: Date | string | null
+    extraKits?: number
     onboardingCompleted?: boolean
     experienceLevel?: string | null
     sellingPlatforms?: UserCreatesellingPlatformsInput | string[]
@@ -19740,7 +19823,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image?: string | null
-    price?: number
     isFreeProduct?: boolean
     totalLicenses?: number
     claimedLicenses?: number
@@ -19765,7 +19847,6 @@ export namespace Prisma {
     description: string
     shortDescription: string
     image?: string | null
-    price?: number
     isFreeProduct?: boolean
     totalLicenses?: number
     claimedLicenses?: number
@@ -19807,6 +19888,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -19830,6 +19914,9 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     freeLicenseAvailable?: IntFieldUpdateOperationsInput | number
+    kitsClaimedThisPeriod?: IntFieldUpdateOperationsInput | number
+    kitPeriodStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    extraKits?: IntFieldUpdateOperationsInput | number
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     experienceLevel?: NullableStringFieldUpdateOperationsInput | string | null
     sellingPlatforms?: UserUpdatesellingPlatformsInput | string[]
@@ -19863,7 +19950,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number
@@ -19888,7 +19974,6 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     shortDescription?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
     isFreeProduct?: BoolFieldUpdateOperationsInput | boolean
     totalLicenses?: IntFieldUpdateOperationsInput | number
     claimedLicenses?: IntFieldUpdateOperationsInput | number

@@ -25,27 +25,30 @@ enum LicenseType {
 }
 
 model User {
-  id                   String             @id
-  name                 String
-  email                String
-  emailVerified        Boolean            @default(false)
-  image                String?
-  role                 UserRole           @default(FREE_USER)
-  freeLicenseAvailable Int                @default(1)
-  onboardingCompleted  Boolean            @default(false)
-  experienceLevel      String? // "first_time", "some_experience", "experienced"
-  sellingPlatforms     String[]           @default([])
-  interestedNiches     String[]           @default([])
-  primaryGoal          String? // "side_income", "full_time", "learn", "grow_existing"
-  createdAt            DateTime           @default(now())
-  updatedAt            DateTime           @default(now()) @updatedAt
-  sessions             Session[]
-  accounts             Account[]
-  posts                Post[]
-  licenses             UserLicense[]
-  savedProducts        SavedProduct[]
-  integrations         Integration[]
-  generatedContent     GeneratedContent[]
+  id                    String             @id
+  name                  String
+  email                 String
+  emailVerified         Boolean            @default(false)
+  image                 String?
+  role                  UserRole           @default(FREE_USER)
+  freeLicenseAvailable  Int                @default(1)
+  kitsClaimedThisPeriod Int                @default(0)
+  kitPeriodStart        DateTime?
+  extraKits             Int                @default(0)
+  onboardingCompleted   Boolean            @default(false)
+  experienceLevel       String? // "first_time", "some_experience", "experienced"
+  sellingPlatforms      String[]           @default([])
+  interestedNiches      String[]           @default([])
+  primaryGoal           String? // "side_income", "full_time", "learn", "grow_existing"
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @default(now()) @updatedAt
+  sessions              Session[]
+  accounts              Account[]
+  posts                 Post[]
+  licenses              UserLicense[]
+  savedProducts         SavedProduct[]
+  integrations          Integration[]
+  generatedContent      GeneratedContent[]
 
   @@unique([email])
   @@map("user")
@@ -115,7 +118,6 @@ model Product {
   description           String
   shortDescription      String
   image                 String?
-  price                 Float      @default(0)
   isFreeProduct         Boolean    @default(false)
   totalLicenses         Int        @default(100)
   claimedLicenses       Int        @default(0)
