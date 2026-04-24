@@ -14,6 +14,10 @@ const config = {
       },
       {
         protocol: "https",
+        hostname: "assets.kitswand.com",
+      },
+      {
+        protocol: "https",
         hostname: "images.unsplash.com",
       },
     ],
