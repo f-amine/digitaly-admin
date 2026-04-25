@@ -37,7 +37,7 @@ import {
   AlertDialogTrigger,
 } from "~/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { ArrowLeft, Trash2, Upload, Loader2, X } from "lucide-react";
+import { ArrowLeft, ExternalLink, Trash2, Upload, Loader2, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -135,6 +135,8 @@ export default function EditProductPage() {
   const [assetName, setAssetName] = useState("");
   const [selectedAssetType, setSelectedAssetType] = useState("product_file");
   const [uploadingFile, setUploadingFile] = useState<File | null>(null);
+  const [assetSource, setAssetSource] = useState<"file" | "link">("file");
+  const [assetUrl, setAssetUrl] = useState("");
 
   useEffect(() => {
     if (product.data && !initialized) {
@@ -177,6 +179,7 @@ export default function EditProductPage() {
       toast.success("Asset added");
       setAssetName("");
       setUploadingFile(null);
+      setAssetUrl("");
       void utils.products.getById.invalidate({ id: productId });
     },
     onError: (err) => {
@@ -348,6 +351,24 @@ export default function EditProductPage() {
       return;
     }
     void assetUpload.upload(uploadingFile);
+  };
+
+  const handleAddAssetLink = () => {
+    const trimmed = assetUrl.trim();
+    if (!assetName) {
+      toast.error("Please enter an asset name");
+      return;
+    }
+    if (!/^https?:\/\//i.test(trimmed)) {
+      toast.error("Please enter a valid URL starting with http(s)://");
+      return;
+    }
+    createAsset.mutate({
+      productId,
+      name: assetName,
+      type: selectedAssetType,
+      fileUrl: trimmed,
+    });
   };
 
   if (product.isPending) {
@@ -747,6 +768,69 @@ export default function EditProductPage() {
                   </div>
                 </div>
 
+                {/* Source toggle: file vs external link */}
+                <div className="grid gap-2">
+                  <Label>Source</Label>
+                  <div className="inline-flex rounded-lg border p-1 w-fit">
+                    <button
+                      type="button"
+                      onClick={() => setAssetSource("file")}
+                      className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm transition-colors ${
+                        assetSource === "file"
+                          ? "bg-foreground text-background"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <Upload className="size-3.5" />
+                      File upload
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAssetSource("link")}
+                      className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm transition-colors ${
+                        assetSource === "link"
+                          ? "bg-foreground text-background"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <ExternalLink className="size-3.5" />
+                      External link
+                    </button>
+                  </div>
+                  {assetSource === "link" && (
+                    <p className="text-xs text-muted-foreground">
+                      Use for Canva templates, Google Drive folders, Notion docs,
+                      and other hosted resources.
+                    </p>
+                  )}
+                </div>
+
+                {assetSource === "link" ? (
+                  <div className="space-y-3">
+                    <div className="grid gap-2">
+                      <Label htmlFor="assetUrl">URL</Label>
+                      <Input
+                        id="assetUrl"
+                        type="url"
+                        value={assetUrl}
+                        onChange={(e) => setAssetUrl(e.target.value)}
+                        placeholder="https://www.canva.com/design/..."
+                      />
+                    </div>
+                    <Button
+                      type="button"
+                      onClick={handleAddAssetLink}
+                      disabled={
+                        !assetName || !assetUrl.trim() || createAsset.isPending
+                      }
+                      className="w-full"
+                    >
+                      <ExternalLink className="mr-2 size-4" />
+                      {createAsset.isPending ? "Adding..." : "Add Link"}
+                    </Button>
+                  </div>
+                ) : (
+                <>
                 {/* File drop zone */}
                 <input
                   ref={assetInputRef}
@@ -830,6 +914,8 @@ export default function EditProductPage() {
                     Upload failed: {assetUpload.state.error}
                   </p>
                 )}
+                </>
+                )}
               </CardContent>
             </Card>
 
@@ -856,16 +942,38 @@ export default function EditProductPage() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {product.data?.assets.map((asset) => (
+                      {product.data?.assets.map((asset) => {
+                        const isLink = /^https?:\/\//i.test(asset.fileUrl);
+                        return (
                         <TableRow key={asset.id}>
                           <TableCell className="font-medium">
-                            {asset.name}
+                            <div className="flex items-center gap-2">
+                              <span>{asset.name}</span>
+                              {isLink && (
+                                <a
+                                  href={asset.fileUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="text-muted-foreground hover:text-foreground"
+                                  aria-label={`Open ${asset.name}`}
+                                >
+                                  <ExternalLink className="size-3.5" />
+                                </a>
+                              )}
+                            </div>
                           </TableCell>
                           <TableCell>
-                            <Badge variant="secondary">{asset.type}</Badge>
+                            <div className="flex items-center gap-1.5">
+                              <Badge variant="secondary">{asset.type}</Badge>
+                              {isLink && (
+                                <Badge variant="outline" className="text-xs">
+                                  link
+                                </Badge>
+                              )}
+                            </div>
                           </TableCell>
                           <TableCell className="text-muted-foreground">
-                            {asset.fileSize ?? "---"}
+                            {asset.fileSize ?? (isLink ? "External" : "---")}
                           </TableCell>
                           <TableCell>
                             <AlertDialog>
@@ -905,7 +1013,8 @@ export default function EditProductPage() {
                             </AlertDialog>
                           </TableCell>
                         </TableRow>
-                      ))}
+                        );
+                      })}
                     </TableBody>
                   </Table>
                 )}
