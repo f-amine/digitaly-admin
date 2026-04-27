@@ -16,7 +16,10 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
-import { Search, ArrowRight, Check, Minus } from "lucide-react";
+import { Search, ArrowRight, Check, Minus, Users } from "lucide-react";
+
+import { KwPageHeader } from "~/components/kw/kw-page-header";
+import { useDebounce } from "~/hooks/use-debounce";
 
 const dateFmt = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -27,9 +30,10 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
 export default function UsersPage() {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<"" | "FREE_USER" | "PRO_MEMBER">("");
+  const debouncedSearch = useDebounce(search.trim(), 300);
 
   const users = api.users.list.useQuery({
-    search: search || undefined,
+    search: debouncedSearch || undefined,
     role: role || undefined,
     limit: 50,
   });
@@ -37,40 +41,48 @@ export default function UsersPage() {
   const count = users.data?.items.length ?? 0;
 
   return (
-    <div className="space-y-4">
-      {/* Header */}
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center gap-2">
-          <h1 className="text-sm font-medium">Users</h1>
-          {!users.isPending && (
-            <Badge variant="secondary" className="font-mono text-[10px] tabular-nums">
-              {count}
-            </Badge>
-          )}
-        </div>
-        <div className="flex-1" />
-        <div className="relative min-w-[200px] max-w-xs">
-          <Search className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search by name or email..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="h-8 pl-8 text-xs"
-          />
-        </div>
-        <Select value={role} onValueChange={(v) => setRole(v ?? "")}>
-          <SelectTrigger className="h-8 w-[140px] text-xs">
-            <SelectValue placeholder="All Roles">
-              {role === "FREE_USER" ? "Free User" : role === "PRO_MEMBER" ? "Pro Member" : "All Roles"}
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="">All Roles</SelectItem>
-            <SelectItem value="FREE_USER">Free User</SelectItem>
-            <SelectItem value="PRO_MEMBER">Pro Member</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+    <div className="mx-auto max-w-6xl space-y-6">
+      <KwPageHeader
+        eyebrow="Inventory"
+        eyebrowIcon={Users}
+        title="All"
+        highlight="users."
+        description="Search the user base, adjust roles, and reset free-license quotas."
+        actions={
+          <div className="flex items-center gap-2">
+            {!users.isPending && (
+              <Badge variant="secondary" className="font-mono text-[10px] tabular-nums">
+                {count}
+              </Badge>
+            )}
+            <div className="relative min-w-[220px] max-w-xs">
+              <Search className="absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search name or email…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="h-9 rounded-full border-[#efefef] bg-white pl-9 text-xs dark:border-[#1f1f1f] dark:bg-[#111111]"
+              />
+            </div>
+            <Select value={role} onValueChange={(v) => setRole(v ?? "")}>
+              <SelectTrigger className="h-9 w-[140px] rounded-full text-xs">
+                <SelectValue placeholder="All Roles">
+                  {role === "FREE_USER"
+                    ? "Free User"
+                    : role === "PRO_MEMBER"
+                      ? "Pro Member"
+                      : "All Roles"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">All Roles</SelectItem>
+                <SelectItem value="FREE_USER">Free User</SelectItem>
+                <SelectItem value="PRO_MEMBER">Pro Member</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        }
+      />
 
       {/* Table */}
       {users.isPending ? (
@@ -80,7 +92,7 @@ export default function UsersPage() {
           ))}
         </div>
       ) : (
-        <div className="rounded-lg border">
+        <div className="overflow-hidden rounded-2xl border border-[#efefef] bg-white shadow-[0px_2px_10px_0px_rgba(0,0,0,0.04)] dark:border-[#1f1f1f] dark:bg-[#111111]">
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">

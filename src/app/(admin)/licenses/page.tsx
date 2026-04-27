@@ -26,7 +26,9 @@ import {
 } from "~/components/ui/alert-dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
 import { toast } from "sonner";
-import { XCircle } from "lucide-react";
+import { ShieldCheck, XCircle } from "lucide-react";
+
+import { KwPageHeader } from "~/components/kw/kw-page-header";
 
 const dateFmt = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -61,31 +63,42 @@ export default function LicensesPage() {
   const count = licenses.data?.items.length ?? 0;
 
   return (
-    <div className="space-y-4">
-      {/* Header */}
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center gap-2">
-          <h1 className="text-sm font-medium">Licenses</h1>
-          {!licenses.isPending && (
-            <Badge variant="secondary" className="font-mono text-[10px] tabular-nums">
-              {count}
-            </Badge>
-          )}
-        </div>
-        <div className="flex-1" />
-        <Select value={licenseType} onValueChange={(v) => setLicenseType(v ?? "")}>
-          <SelectTrigger className="h-8 w-[140px] text-xs">
-            <SelectValue placeholder="All Types">
-              {licenseType === "SHARED" ? "Shared" : licenseType === "EXCLUSIVE" ? "Exclusive" : "All Types"}
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="">All Types</SelectItem>
-            <SelectItem value="SHARED">Shared</SelectItem>
-            <SelectItem value="EXCLUSIVE">Exclusive</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+    <div className="mx-auto max-w-6xl space-y-6">
+      <KwPageHeader
+        eyebrow="Inventory"
+        eyebrowIcon={ShieldCheck}
+        title="Active"
+        highlight="licenses."
+        description="Track who claimed what and revoke if needed."
+        actions={
+          <div className="flex items-center gap-2">
+            {!licenses.isPending && (
+              <Badge variant="secondary" className="font-mono text-[10px] tabular-nums">
+                {count}
+              </Badge>
+            )}
+            <Select
+              value={licenseType}
+              onValueChange={(v) => setLicenseType(v ?? "")}
+            >
+              <SelectTrigger className="h-9 w-[140px] rounded-full text-xs">
+                <SelectValue placeholder="All Types">
+                  {licenseType === "SHARED"
+                    ? "Shared"
+                    : licenseType === "EXCLUSIVE"
+                      ? "Exclusive"
+                      : "All Types"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">All Types</SelectItem>
+                <SelectItem value="SHARED">Shared</SelectItem>
+                <SelectItem value="EXCLUSIVE">Exclusive</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        }
+      />
 
       {/* Table */}
       {licenses.isPending ? (
@@ -95,7 +108,7 @@ export default function LicensesPage() {
           ))}
         </div>
       ) : (
-        <div className="rounded-lg border">
+        <div className="overflow-hidden rounded-2xl border border-[#efefef] bg-white shadow-[0px_2px_10px_0px_rgba(0,0,0,0.04)] dark:border-[#1f1f1f] dark:bg-[#111111]">
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">

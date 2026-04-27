@@ -11,6 +11,7 @@ datasource db {
 enum UserRole {
   FREE_USER
   PRO_MEMBER
+  PARTNER
 }
 
 enum Difficulty {
@@ -22,6 +23,23 @@ enum Difficulty {
 enum LicenseType {
   SHARED
   EXCLUSIVE
+}
+
+enum PartnerApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum CouponDiscountType {
+  PERCENT
+  FIXED
+}
+
+enum PayoutStatus {
+  PENDING
+  PAID
+  FAILED
 }
 
 model User {
@@ -49,6 +67,7 @@ model User {
   savedProducts SavedProduct[]
   integrations     Integration[]
   generatedContent GeneratedContent[]
+  partner          Partner?
 
   @@unique([email])
   @@map("user")
@@ -211,4 +230,112 @@ model SavedProduct {
 
   @@unique([userId, productId])
   @@index([userId])
+}
+
+model PartnerApplication {
+  id           String                   @id @default(cuid())
+  fullName     String
+  email        String
+  socialHandle String
+  socialLinks  Json?
+  niche        String
+  audienceSize Int                      @default(0)
+  pitch        String
+  status       PartnerApplicationStatus @default(PENDING)
+  reviewNotes  String?
+  reviewedBy   String?
+  reviewedAt   DateTime?
+  createdAt    DateTime                 @default(now())
+  partner      Partner?
+
+  @@index([email])
+  @@index([status])
+  @@map("partner_application")
+}
+
+model Partner {
+  id            String             @id @default(cuid())
+  applicationId String             @unique
+  application   PartnerApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  userId        String?            @unique
+  user          User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  email         String             @unique
+  fullName      String
+  slug          String             @unique
+  niche         String
+  payoutMethod  String?
+  payoutDetails Json?
+  active        Boolean            @default(true)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  coupons       Coupon[]
+  clicks        ReferralClick[]
+  payouts       Payout[]
+
+  @@index([active])
+  @@map("partner")
+}
+
+model Coupon {
+  id             String             @id @default(cuid())
+  code           String             @unique
+  partnerId      String
+  partner        Partner            @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  discountType   CouponDiscountType
+  discountValue  Int
+  active         Boolean            @default(true)
+  expiresAt      DateTime?
+  stripeCouponId String?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  redemptions    CouponRedemption[]
+
+  @@index([partnerId])
+  @@map("coupon")
+}
+
+model CouponRedemption {
+  id          String   @id @default(cuid())
+  couponId    String
+  coupon      Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  userId      String?
+  productId   String?
+  orderRef    String?
+  amountCents Int      @default(0)
+  redeemedAt  DateTime @default(now())
+
+  @@index([couponId, redeemedAt])
+  @@map("coupon_redemption")
+}
+
+model ReferralClick {
+  id          String   @id @default(cuid())
+  partnerId   String
+  partner     Partner  @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  ip          String?
+  userAgent   String?
+  referer     String?
+  landingPath String?
+  createdAt   DateTime @default(now())
+
+  @@index([partnerId, createdAt])
+  @@map("referral_click")
+}
+
+model Payout {
+  id          String       @id @default(cuid())
+  partnerId   String
+  partner     Partner      @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  amountCents Int
+  currency    String       @default("USD")
+  status      PayoutStatus @default(PENDING)
+  method      String
+  reference   String?
+  notes       String?
+  paidAt      DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([partnerId, createdAt])
+  @@map("payout")
 }

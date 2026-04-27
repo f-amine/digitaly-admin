@@ -27,8 +27,11 @@ import {
   AlertDialogTrigger,
 } from "~/components/ui/alert-dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
-import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import { Package, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+
+import { KwPageHeader } from "~/components/kw/kw-page-header";
+import { useDebounce } from "~/hooks/use-debounce";
 
 const CATEGORIES = [
   { value: "", label: "All Categories" },
@@ -52,9 +55,10 @@ function licenseStatusColor(claimed: number, total: number) {
 export default function ProductsPage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
+  const debouncedSearch = useDebounce(search.trim(), 300);
 
   const products = api.products.list.useQuery({
-    search: search || undefined,
+    search: debouncedSearch || undefined,
     category: category || undefined,
     limit: 50,
   });
@@ -74,46 +78,55 @@ export default function ProductsPage() {
   const count = products.data?.items.length ?? 0;
 
   return (
-    <div className="space-y-4">
-      {/* Header */}
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center gap-2">
-          <h1 className="text-sm font-medium">Products</h1>
-          {!products.isPending && (
-            <Badge variant="secondary" className="font-mono text-[10px] tabular-nums">
-              {count}
-            </Badge>
-          )}
-        </div>
-        <div className="flex-1" />
-        <div className="relative min-w-[200px] max-w-xs">
-          <Search className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search products..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="h-8 pl-8 text-xs"
-          />
-        </div>
-        <Select value={category} onValueChange={(v) => setCategory(v ?? "")}>
-          <SelectTrigger className="h-8 w-[160px] text-xs">
-            <SelectValue placeholder="All Categories">
-              {CATEGORIES.find(c => c.value === category)?.label ?? "All Categories"}
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            {CATEGORIES.map((cat) => (
-              <SelectItem key={cat.value} value={cat.value}>
-                {cat.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Button size="sm" render={<Link href="/products/new" />} className="h-8 bg-green-600 text-white hover:bg-green-700">
-          <Plus className="size-3.5" />
-          New Product
-        </Button>
-      </div>
+    <div className="mx-auto max-w-6xl space-y-6">
+      <KwPageHeader
+        eyebrow="Inventory"
+        eyebrowIcon={Package}
+        title="Digital"
+        highlight="kits."
+        description="Browse, edit and add launch kits available to creators."
+        actions={
+          <div className="flex flex-wrap items-center gap-2">
+            {!products.isPending && (
+              <Badge variant="secondary" className="font-mono text-[10px] tabular-nums">
+                {count}
+              </Badge>
+            )}
+            <div className="relative min-w-[220px] max-w-xs">
+              <Search className="absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search products…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="h-9 rounded-full border-[#efefef] bg-white pl-9 text-xs dark:border-[#1f1f1f] dark:bg-[#111111]"
+              />
+            </div>
+            <Select value={category} onValueChange={(v) => setCategory(v ?? "")}>
+              <SelectTrigger className="h-9 w-[160px] rounded-full text-xs">
+                <SelectValue placeholder="All Categories">
+                  {CATEGORIES.find((c) => c.value === category)?.label ??
+                    "All Categories"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {CATEGORIES.map((cat) => (
+                  <SelectItem key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Link
+              href="/products/new"
+              className="group inline-flex h-9 items-center gap-2 rounded-full bg-[#E8431A] px-4 text-[12px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#d63c17]"
+              style={{ boxShadow: "rgba(0,0,0,0.18) 0px 4px 0px" }}
+            >
+              <Plus className="size-3.5" />
+              New product
+            </Link>
+          </div>
+        }
+      />
 
       {/* Table */}
       {products.isPending ? (
@@ -123,7 +136,7 @@ export default function ProductsPage() {
           ))}
         </div>
       ) : (
-        <div className="rounded-lg border">
+        <div className="overflow-hidden rounded-2xl border border-[#efefef] bg-white shadow-[0px_2px_10px_0px_rgba(0,0,0,0.04)] dark:border-[#1f1f1f] dark:bg-[#111111]">
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">

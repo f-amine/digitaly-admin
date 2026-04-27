@@ -255,9 +255,92 @@ exports.Prisma.SavedProductScalarFieldEnum = {
   savedAt: 'savedAt'
 };
 
+exports.Prisma.PartnerApplicationScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  socialHandle: 'socialHandle',
+  socialLinks: 'socialLinks',
+  niche: 'niche',
+  audienceSize: 'audienceSize',
+  pitch: 'pitch',
+  status: 'status',
+  reviewNotes: 'reviewNotes',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PartnerScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  userId: 'userId',
+  email: 'email',
+  fullName: 'fullName',
+  slug: 'slug',
+  niche: 'niche',
+  payoutMethod: 'payoutMethod',
+  payoutDetails: 'payoutDetails',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CouponScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  partnerId: 'partnerId',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  active: 'active',
+  expiresAt: 'expiresAt',
+  stripeCouponId: 'stripeCouponId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CouponRedemptionScalarFieldEnum = {
+  id: 'id',
+  couponId: 'couponId',
+  userId: 'userId',
+  productId: 'productId',
+  orderRef: 'orderRef',
+  amountCents: 'amountCents',
+  redeemedAt: 'redeemedAt'
+};
+
+exports.Prisma.ReferralClickScalarFieldEnum = {
+  id: 'id',
+  partnerId: 'partnerId',
+  ip: 'ip',
+  userAgent: 'userAgent',
+  referer: 'referer',
+  landingPath: 'landingPath',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PayoutScalarFieldEnum = {
+  id: 'id',
+  partnerId: 'partnerId',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  status: 'status',
+  method: 'method',
+  reference: 'reference',
+  notes: 'notes',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -269,9 +352,16 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
 exports.UserRole = exports.$Enums.UserRole = {
   FREE_USER: 'FREE_USER',
-  PRO_MEMBER: 'PRO_MEMBER'
+  PRO_MEMBER: 'PRO_MEMBER',
+  PARTNER: 'PARTNER'
 };
 
 exports.Difficulty = exports.$Enums.Difficulty = {
@@ -285,6 +375,23 @@ exports.LicenseType = exports.$Enums.LicenseType = {
   EXCLUSIVE: 'EXCLUSIVE'
 };
 
+exports.PartnerApplicationStatus = exports.$Enums.PartnerApplicationStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
+exports.CouponDiscountType = exports.$Enums.CouponDiscountType = {
+  PERCENT: 'PERCENT',
+  FIXED: 'FIXED'
+};
+
+exports.PayoutStatus = exports.$Enums.PayoutStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  FAILED: 'FAILED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
@@ -296,7 +403,13 @@ exports.Prisma.ModelName = {
   UserLicense: 'UserLicense',
   Integration: 'Integration',
   GeneratedContent: 'GeneratedContent',
-  SavedProduct: 'SavedProduct'
+  SavedProduct: 'SavedProduct',
+  PartnerApplication: 'PartnerApplication',
+  Partner: 'Partner',
+  Coupon: 'Coupon',
+  CouponRedemption: 'CouponRedemption',
+  ReferralClick: 'ReferralClick',
+  Payout: 'Payout'
 };
 
 /**

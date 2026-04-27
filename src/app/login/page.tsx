@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { authClient } from "~/server/better-auth/client";
-import { Button } from "~/components/ui/button";
+import Link from "next/link";
+import { ArrowRight, Loader2, ShieldCheck } from "lucide-react";
+
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { Lock } from "lucide-react";
+import { KwLogo } from "~/components/kw/kw-logo";
+import { authClient } from "~/server/better-auth/client";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,136 +15,159 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     try {
-      const result = await authClient.signIn.email({
-        email,
-        password,
-      });
-
+      const result = await authClient.signIn.email({ email, password });
       if (result.error) {
         setError(result.error.message ?? "Sign in failed");
       } else {
         window.location.href = "/dashboard";
       }
     } catch {
-      setError("An unexpected error occurred");
+      setError("Unexpected error");
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-background px-4">
-      {/* Grid pattern background */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
+    <div className="kw-font relative flex min-h-screen flex-col bg-white text-[#121212] dark:bg-[#0a0a0a] dark:text-white">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          style={{
+            position: "absolute",
+            top: -160,
+            left: -120,
+            width: 540,
+            height: 540,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle at 40% 40%, rgba(232,67,26,0.18) 0%, rgba(232,67,26,0.05) 55%, transparent 75%)",
+            filter: "blur(80px)",
+            animation: "kw-blob1 14s ease-in-out infinite",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: -180,
+            right: -140,
+            width: 520,
+            height: 520,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle at 60% 40%, rgba(255,140,60,0.14) 0%, rgba(255,180,100,0.05) 55%, transparent 75%)",
+            filter: "blur(90px)",
+            animation: "kw-blob2 18s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+      </div>
 
-      {/* Subtle radial glow behind the card */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[120px]" />
+      <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
+        <Link href="/" className="flex items-center gap-2">
+          <KwLogo className="h-7 w-auto" />
+          <span className="hidden text-[10px] font-bold uppercase tracking-[0.2em] text-[#888] sm:inline-block">
+            · Admin
+          </span>
+        </Link>
+      </header>
 
-      <div className="relative z-10 w-full max-w-[380px]">
-        {/* Card with border glow */}
-        <div className="rounded-lg border border-border/60 bg-card/80 shadow-2xl shadow-primary/5 backdrop-blur-sm">
-          {/* Glow ring */}
-          <div className="absolute -inset-px -z-10 rounded-lg bg-primary/10 blur-sm" />
-
-          {/* Header */}
-          <div className="flex flex-col items-center px-8 pt-10 pb-2">
-            {/* Logo */}
-            <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-xl bg-primary text-primary-foreground text-2xl font-black shadow-lg shadow-primary/20">
-              D
+      <div className="relative z-10 flex flex-1 items-center justify-center px-6 pb-20">
+        <div className="w-full max-w-md">
+          <div className="mb-7 text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#e8e8e8] bg-white px-3 py-1.5 text-[12px] font-medium text-[#121212] shadow-[0px_2px_10px_0px_rgba(0,0,0,0.05)] dark:border-[#1f1f1f] dark:bg-[#111111] dark:text-white">
+              <ShieldCheck className="h-3.5 w-3.5 text-[#E8431A]" />
+              Admin console
             </div>
-
-            <h1 className="text-xl font-semibold tracking-[0.15em] text-foreground">
-              Digitaly Admin
+            <h1 className="text-[36px] font-bold leading-[1.05] tracking-[-0.03em] text-[#121212] dark:text-white">
+              Welcome <span className="text-[#E8431A]">back.</span>
             </h1>
-
-            <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-              Control Panel
+            <p className="mt-2 text-[14px] text-[#888]">
+              Restricted to authorized KitsWand staff.
             </p>
           </div>
 
-          {/* Form */}
-          <div className="px-8 pt-6 pb-8">
-            <form onSubmit={handleSubmit} className="grid gap-4">
+          <div className="rounded-3xl border border-[#efefef] bg-white p-7 shadow-[0px_8px_32px_0px_rgba(0,0,0,0.06)] dark:border-[#1f1f1f] dark:bg-[#111111]">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
-                <div className="rounded border-l-2 border-l-destructive bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                <div className="rounded-xl border-l-2 border-l-destructive bg-destructive/10 px-3 py-2 text-[13px] text-destructive">
                   {error}
                 </div>
               )}
-
-              <div className="grid gap-1.5">
+              <div>
                 <Label
                   htmlFor="email"
-                  className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground"
+                  className="text-[12px] font-bold uppercase tracking-[0.06em] text-[#888]"
                 >
                   Email
                 </Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="admin@digitaly.com"
+                  required
+                  autoFocus
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="border-border/60 bg-background/60 text-sm placeholder:text-muted-foreground/40 focus-visible:ring-primary/40"
+                  placeholder="admin@kitswand.com"
+                  className="mt-2 h-11 rounded-xl border-[#efefef] bg-[#fafafa] focus-visible:border-[#E8431A]/40 focus-visible:ring-[#E8431A]/20 dark:border-[#1f1f1f] dark:bg-[#1a1a1a]"
                 />
               </div>
-
-              <div className="grid gap-1.5">
+              <div>
                 <Label
                   htmlFor="password"
-                  className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground"
+                  className="text-[12px] font-bold uppercase tracking-[0.06em] text-[#888]"
                 >
                   Password
                 </Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Enter your password"
+                  required
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="border-border/60 bg-background/60 text-sm placeholder:text-muted-foreground/40 focus-visible:ring-primary/40"
+                  className="mt-2 h-11 rounded-xl border-[#efefef] bg-[#fafafa] focus-visible:border-[#E8431A]/40 focus-visible:ring-[#E8431A]/20 dark:border-[#1f1f1f] dark:bg-[#1a1a1a]"
                 />
               </div>
-
-              <Button
+              <button
                 type="submit"
                 disabled={loading}
-                className="mt-2 w-full bg-primary font-mono text-xs uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#E8431A] py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#d63c17] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+                style={{
+                  boxShadow:
+                    "rgba(0,0,0,0.18) 0px 5px 0px, rgba(232,67,26,0.35) 0px 2px 12px",
+                }}
               >
                 {loading ? (
-                  <span className="flex items-center gap-2">
-                    <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-primary-foreground/30 border-t-primary-foreground" />
-                    Authenticating
-                  </span>
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" /> Authenticating…
+                  </>
                 ) : (
-                  <span className="flex items-center gap-2">
-                    <Lock className="size-3.5" />
-                    Sign In
-                  </span>
+                  <>
+                    Sign in
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </>
                 )}
-              </Button>
+              </button>
             </form>
           </div>
-        </div>
 
-        {/* Footer text */}
-        <p className="mt-6 text-center font-mono text-[10px] uppercase tracking-widest text-muted-foreground/40">
-          Secured Access
-        </p>
+          <p className="mt-6 text-center text-[11px] uppercase tracking-[0.18em] text-[#bbb] dark:text-[#555]">
+            Secured access · v1
+          </p>
+        </div>
       </div>
     </div>
   );
