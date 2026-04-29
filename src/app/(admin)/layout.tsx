@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -9,6 +9,7 @@ import {
   ClipboardList,
   Handshake,
   LayoutDashboard,
+  Loader2,
   LogOut,
   Package,
   ShieldCheck,
@@ -124,6 +125,7 @@ export default function AdminLayout({
   const router = useRouter();
   const pathname = usePathname();
   const { data: session, isPending } = authClient.useSession();
+  const [signingOut, setSigningOut] = useState(false);
 
   useEffect(() => {
     if (!isPending && !session) router.push("/login");
@@ -149,9 +151,15 @@ export default function AdminLayout({
   const pageTitle = getPageTitle(pathname);
 
   async function handleSignOut() {
-    await authClient.signOut();
-    router.push("/login");
-    router.refresh();
+    if (signingOut) return;
+    setSigningOut(true);
+    try {
+      await authClient.signOut();
+      router.push("/login");
+      router.refresh();
+    } finally {
+      setSigningOut(false);
+    }
   }
 
   return (
@@ -223,9 +231,14 @@ export default function AdminLayout({
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={handleSignOut}
+                    disabled={signingOut}
                     className="text-destructive focus:text-destructive"
                   >
-                    <LogOut className="size-4" />
+                    {signingOut ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      <LogOut className="size-4" />
+                    )}
                     Sign out
                   </DropdownMenuItem>
                 </DropdownMenuContent>

@@ -95,20 +95,18 @@ export const applicationsRouter = createTRPCRouter({
         return { application: updated, partner, coupon };
       });
 
-      try {
-        await sendApplicationApprovedEmail({
-          to: app.email,
-          fullName: app.fullName,
-          couponCode: result.coupon.code,
-          discountLabel:
-            input.discountType === "PERCENT"
-              ? `${input.discountValue}% off`
-              : `$${(input.discountValue / 100).toFixed(2)} off`,
-          partnerSlug: result.partner.slug,
-        });
-      } catch (err) {
+      void sendApplicationApprovedEmail({
+        to: app.email,
+        fullName: app.fullName,
+        couponCode: result.coupon.code,
+        discountLabel:
+          input.discountType === "PERCENT"
+            ? `${input.discountValue}% off`
+            : `$${(input.discountValue / 100).toFixed(2)} off`,
+        partnerSlug: result.partner.slug,
+      }).catch((err) => {
         console.error("[applications.approve] email send failed", err);
-      }
+      });
 
       return result;
     }),

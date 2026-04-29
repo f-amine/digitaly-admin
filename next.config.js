@@ -6,6 +6,9 @@ import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
 const config = {
+  experimental: {
+    optimizePackageImports: ["lucide-react", "recharts", "date-fns"],
+  },
   images: {
     remotePatterns: [
       {
