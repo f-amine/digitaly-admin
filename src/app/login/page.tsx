@@ -22,13 +22,7 @@ export default function LoginPage() {
     try {
       const result = await authClient.signIn.email({ email, password });
       if (result.error) {
-        if (result.error.code === "EMAIL_NOT_VERIFIED") {
-          setError(
-            "Please verify your email first. We just sent a new verification link to your inbox.",
-          );
-        } else {
-          setError(result.error.message ?? "Sign in failed");
-        }
+        setError(result.error.message ?? "Sign in failed");
       } else {
         window.location.href = "/dashboard";
       }

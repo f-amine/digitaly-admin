@@ -6,9 +6,6 @@ import { sendEmail } from "./send";
 import PasswordResetEmail, {
   PASSWORD_RESET_SUBJECT,
 } from "./templates/auth/password-reset";
-import VerificationEmail, {
-  VERIFICATION_SUBJECT,
-} from "./templates/auth/verification";
 import ApplicationApprovedEmail, {
   APPLICATION_APPROVED_SUBJECT,
 } from "./templates/partner/application-approved";
@@ -50,23 +47,6 @@ export async function sendApplicationApprovedEmail(input: ApprovedEmail) {
   }
   return { id: result.id };
 }
-
-export const sendVerificationEmail = (args: {
-  to: string;
-  firstName?: string;
-  verifyUrl: string;
-}) =>
-  sendEmail({
-    to: args.to,
-    subject: VERIFICATION_SUBJECT,
-    react: (
-      <VerificationEmail
-        firstName={args.firstName}
-        verifyUrl={args.verifyUrl}
-      />
-    ),
-    tags: [{ name: "category", value: "verification" }],
-  });
 
 export const sendPasswordResetEmail = (args: {
   to: string;
