@@ -18,7 +18,7 @@ export const env = createEnv({
     RESEND_API_KEY: z.string().optional(),
     EMAIL_FROM: z.string().optional(),
     GEMINI_API_KEY: z.string().optional(),
-    GEMINI_TEXT_MODEL: z.string().default("gemini-3.1-flash-lite"),
+    GEMINI_TEXT_MODEL: z.string().default("gemini-3.1-flash-lite-preview"),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),

@@ -188,15 +188,86 @@ export const productsRouter = createTRPCRouter({
           category: true,
           difficulty: true,
           sellingPlatforms: true,
+          languages: true,
+          assets: {
+            select: {
+              name: true,
+              type: true,
+              fileUrl: true,
+              fileSize: true,
+            },
+          },
         },
       });
+
+      // Pull up to MAX_PDFS PDF assets, total under MAX_TOTAL_BYTES, to ground
+      // generation in actual product content rather than internal description.
+      const MAX_PDFS = 4;
+      const MAX_PER_FILE_BYTES = 8 * 1024 * 1024; // 8 MB
+      const MAX_TOTAL_BYTES = 18 * 1024 * 1024; // 18 MB
+
+      const isPdfUrl = (url: string) =>
+        /\.pdf(\?|$)/i.test(url) || url.toLowerCase().includes("/pdf/");
+
+      const candidates = product.assets.filter(
+        (a) => isPdfUrl(a.fileUrl) && /^https?:\/\//i.test(a.fileUrl),
+      );
+
+      const pdfFiles: {
+        name: string;
+        type: string;
+        bytes: Uint8Array;
+      }[] = [];
+      let totalBytes = 0;
+
+      for (const asset of candidates) {
+        if (pdfFiles.length >= MAX_PDFS) break;
+        try {
+          const res = await fetch(asset.fileUrl);
+          if (!res.ok) continue;
+          const buf = new Uint8Array(await res.arrayBuffer());
+          if (buf.byteLength > MAX_PER_FILE_BYTES) continue;
+          if (totalBytes + buf.byteLength > MAX_TOTAL_BYTES) break;
+          totalBytes += buf.byteLength;
+          pdfFiles.push({ name: asset.name, type: asset.type, bytes: buf });
+        } catch {
+          // Skip unreachable / errored asset
+        }
+      }
+
+      const assetSummary = product.assets.map((a) => ({
+        name: a.name,
+        type: a.type,
+        size: a.fileSize ?? null,
+        attachedToPrompt: pdfFiles.some((p) => p.name === a.name),
+      }));
+
+      const userMessage = buildMarketingKitUserMessage({
+        ...product,
+        assetSummary,
+        attachedPdfCount: pdfFiles.length,
+      });
+
+      const userContent: (
+        | { type: "text"; text: string }
+        | { type: "file"; data: Uint8Array; mediaType: string; filename?: string }
+      )[] = [{ type: "text", text: userMessage }];
+
+      for (const pdf of pdfFiles) {
+        userContent.push({
+          type: "file",
+          data: pdf.bytes,
+          mediaType: "application/pdf",
+          filename: pdf.name,
+        });
+      }
 
       const result = await generateObject({
         model: geminiText,
         schema: marketingKitSchema,
         system: MARKETING_KIT_SYSTEM_PROMPT,
-        prompt: buildMarketingKitUserMessage(product),
-        maxOutputTokens: 2200,
+        messages: [{ role: "user", content: userContent }],
+        maxOutputTokens: 2400,
       });
 
       return ctx.db.product.update({
