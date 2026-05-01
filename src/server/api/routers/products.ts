@@ -1,5 +1,34 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
+import { generateObject } from "ai";
+import { Prisma } from "../../../../generated/prisma";
+
 import { createTRPCRouter, adminProcedure } from "~/server/api/trpc";
+import { geminiText, isGeminiTextConfigured } from "~/server/ai/gemini-text";
+import { marketingKitSchema } from "~/lib/marketing-kit/schema";
+import {
+  MARKETING_KIT_SYSTEM_PROMPT,
+  buildMarketingKitUserMessage,
+} from "~/lib/marketing-kit/prompt";
+
+const personaInputSchema = z.object({
+  name: z.string().min(1),
+  occupation: z.string().min(1),
+  pains: z.array(z.string().min(1)),
+  desires: z.array(z.string().min(1)),
+});
+
+const hookInputSchema = z.object({
+  angle: z.string().min(1),
+  text: z.string().min(1),
+});
+
+const adCopyInputSchema = z.object({
+  platform: z.string().min(1),
+  headline: z.string().optional(),
+  primaryText: z.string().min(1),
+  cta: z.string().optional(),
+});
 
 export const productsRouter = createTRPCRouter({
   list: adminProcedure
@@ -107,13 +136,76 @@ export const productsRouter = createTRPCRouter({
           demandLabel: z.string().optional().nullable(),
           exclusiveLicensePrice: z.number().optional().nullable(),
           exclusiveLicenseSold: z.boolean().optional(),
+          targetAudience: z.array(personaInputSchema).nullable().optional(),
+          marketingHooks: z.array(hookInputSchema).nullable().optional(),
+          adCopies: z.array(adCopyInputSchema).nullable().optional(),
         }),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const { targetAudience, marketingHooks, adCopies, ...rest } = input.data;
+      const data: Prisma.ProductUpdateInput = { ...rest };
+      if (targetAudience !== undefined) {
+        data.targetAudience =
+          targetAudience === null
+            ? Prisma.JsonNull
+            : (targetAudience as Prisma.InputJsonValue);
+      }
+      if (marketingHooks !== undefined) {
+        data.marketingHooks =
+          marketingHooks === null
+            ? Prisma.JsonNull
+            : (marketingHooks as Prisma.InputJsonValue);
+      }
+      if (adCopies !== undefined) {
+        data.adCopies =
+          adCopies === null
+            ? Prisma.JsonNull
+            : (adCopies as Prisma.InputJsonValue);
+      }
       return ctx.db.product.update({
         where: { id: input.id },
-        data: input.data,
+        data,
+      });
+    }),
+
+  generateMarketingKit: adminProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      if (!isGeminiTextConfigured()) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "GEMINI_API_KEY not configured",
+        });
+      }
+
+      const product = await ctx.db.product.findUniqueOrThrow({
+        where: { id: input.id },
+        select: {
+          name: true,
+          shortDescription: true,
+          description: true,
+          category: true,
+          difficulty: true,
+          sellingPlatforms: true,
+        },
+      });
+
+      const result = await generateObject({
+        model: geminiText,
+        schema: marketingKitSchema,
+        system: MARKETING_KIT_SYSTEM_PROMPT,
+        prompt: buildMarketingKitUserMessage(product),
+        maxOutputTokens: 2200,
+      });
+
+      return ctx.db.product.update({
+        where: { id: input.id },
+        data: {
+          targetAudience: result.object.targetAudience,
+          marketingHooks: result.object.marketingHooks,
+          adCopies: result.object.adCopies,
+        },
       });
     }),
 

@@ -41,6 +41,13 @@ import { ArrowLeft, ExternalLink, Trash2, Upload, Loader2, X } from "lucide-reac
 import Link from "next/link";
 import Image from "next/image";
 
+import { MarketingKitTab } from "./marketing-kit-tab";
+import type {
+  AdCopy,
+  Hook,
+  Persona,
+} from "~/lib/marketing-kit/schema";
+
 const CATEGORIES = [
   { value: "starter", label: "Starter" },
   { value: "ai_tools", label: "AI Tools" },
@@ -409,6 +416,7 @@ export default function EditProductPage() {
           <TabsTrigger value="assets">
             Assets ({product.data?.assets.length ?? 0})
           </TabsTrigger>
+          <TabsTrigger value="marketing">Marketing Kit</TabsTrigger>
         </TabsList>
 
         <TabsContent value="details">
@@ -1021,6 +1029,19 @@ export default function EditProductPage() {
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
+
+        <TabsContent value="marketing">
+          <MarketingKitTab
+            productId={productId}
+            initial={{
+              targetAudience:
+                (product.data?.targetAudience as Persona[] | null) ?? null,
+              marketingHooks:
+                (product.data?.marketingHooks as Hook[] | null) ?? null,
+              adCopies: (product.data?.adCopies as AdCopy[] | null) ?? null,
+            }}
+          />
         </TabsContent>
       </Tabs>
     </div>

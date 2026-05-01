@@ -203,6 +203,9 @@ exports.Prisma.ProductScalarFieldEnum = {
   demandLabel: 'demandLabel',
   exclusiveLicensePrice: 'exclusiveLicensePrice',
   exclusiveLicenseSold: 'exclusiveLicenseSold',
+  targetAudience: 'targetAudience',
+  marketingHooks: 'marketingHooks',
+  adCopies: 'adCopies',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

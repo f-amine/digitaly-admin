@@ -17,6 +17,8 @@ export const env = createEnv({
     PARTNER_PORTAL_URL: z.string().url().default("http://localhost:3002"),
     RESEND_API_KEY: z.string().optional(),
     EMAIL_FROM: z.string().optional(),
+    GEMINI_API_KEY: z.string().optional(),
+    GEMINI_TEXT_MODEL: z.string().default("gemini-3.1-flash-lite"),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -34,6 +36,8 @@ export const env = createEnv({
     PARTNER_PORTAL_URL: process.env.PARTNER_PORTAL_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     EMAIL_FROM: process.env.EMAIL_FROM,
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    GEMINI_TEXT_MODEL: process.env.GEMINI_TEXT_MODEL,
     NODE_ENV: process.env.NODE_ENV,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,

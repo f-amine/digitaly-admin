@@ -8469,6 +8469,9 @@ export namespace Prisma {
     demandLabel: number
     exclusiveLicensePrice: number
     exclusiveLicenseSold: number
+    targetAudience: number
+    marketingHooks: number
+    adCopies: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -8545,6 +8548,9 @@ export namespace Prisma {
     demandLabel?: true
     exclusiveLicensePrice?: true
     exclusiveLicenseSold?: true
+    targetAudience?: true
+    marketingHooks?: true
+    adCopies?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -8654,6 +8660,9 @@ export namespace Prisma {
     demandLabel: string | null
     exclusiveLicensePrice: number | null
     exclusiveLicenseSold: boolean
+    targetAudience: JsonValue | null
+    marketingHooks: JsonValue | null
+    adCopies: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: ProductCountAggregateOutputType | null
@@ -8695,6 +8704,9 @@ export namespace Prisma {
     demandLabel?: boolean
     exclusiveLicensePrice?: boolean
     exclusiveLicenseSold?: boolean
+    targetAudience?: boolean
+    marketingHooks?: boolean
+    adCopies?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     assets?: boolean | Product$assetsArgs<ExtArgs>
@@ -8721,6 +8733,9 @@ export namespace Prisma {
     demandLabel?: boolean
     exclusiveLicensePrice?: boolean
     exclusiveLicenseSold?: boolean
+    targetAudience?: boolean
+    marketingHooks?: boolean
+    adCopies?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["product"]>
@@ -8743,6 +8758,9 @@ export namespace Prisma {
     demandLabel?: boolean
     exclusiveLicensePrice?: boolean
     exclusiveLicenseSold?: boolean
+    targetAudience?: boolean
+    marketingHooks?: boolean
+    adCopies?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["product"]>
@@ -8765,11 +8783,14 @@ export namespace Prisma {
     demandLabel?: boolean
     exclusiveLicensePrice?: boolean
     exclusiveLicenseSold?: boolean
+    targetAudience?: boolean
+    marketingHooks?: boolean
+    adCopies?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "shortDescription" | "image" | "isFreeProduct" | "totalLicenses" | "claimedLicenses" | "category" | "featured" | "difficulty" | "sellingPlatforms" | "languages" | "demandLabel" | "exclusiveLicensePrice" | "exclusiveLicenseSold" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "shortDescription" | "image" | "isFreeProduct" | "totalLicenses" | "claimedLicenses" | "category" | "featured" | "difficulty" | "sellingPlatforms" | "languages" | "demandLabel" | "exclusiveLicensePrice" | "exclusiveLicenseSold" | "targetAudience" | "marketingHooks" | "adCopies" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assets?: boolean | Product$assetsArgs<ExtArgs>
     licenses?: boolean | Product$licensesArgs<ExtArgs>
@@ -8804,6 +8825,9 @@ export namespace Prisma {
       demandLabel: string | null
       exclusiveLicensePrice: number | null
       exclusiveLicenseSold: boolean
+      targetAudience: Prisma.JsonValue | null
+      marketingHooks: Prisma.JsonValue | null
+      adCopies: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["product"]>
@@ -9249,6 +9273,9 @@ export namespace Prisma {
     readonly demandLabel: FieldRef<"Product", 'String'>
     readonly exclusiveLicensePrice: FieldRef<"Product", 'Float'>
     readonly exclusiveLicenseSold: FieldRef<"Product", 'Boolean'>
+    readonly targetAudience: FieldRef<"Product", 'Json'>
+    readonly marketingHooks: FieldRef<"Product", 'Json'>
+    readonly adCopies: FieldRef<"Product", 'Json'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
   }
@@ -22264,6 +22291,9 @@ export namespace Prisma {
     demandLabel: 'demandLabel',
     exclusiveLicensePrice: 'exclusiveLicensePrice',
     exclusiveLicenseSold: 'exclusiveLicenseSold',
+    targetAudience: 'targetAudience',
+    marketingHooks: 'marketingHooks',
+    adCopies: 'adCopies',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -22568,20 +22598,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'LicenseType'
-   */
-  export type EnumLicenseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseType'>
-    
-
-
-  /**
-   * Reference to a field of type 'LicenseType[]'
-   */
-  export type ListEnumLicenseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseType[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -22592,6 +22608,20 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'LicenseType'
+   */
+  export type EnumLicenseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseType'>
+    
+
+
+  /**
+   * Reference to a field of type 'LicenseType[]'
+   */
+  export type ListEnumLicenseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LicenseType[]'>
     
 
 
@@ -23076,6 +23106,9 @@ export namespace Prisma {
     demandLabel?: StringNullableFilter<"Product"> | string | null
     exclusiveLicensePrice?: FloatNullableFilter<"Product"> | number | null
     exclusiveLicenseSold?: BoolFilter<"Product"> | boolean
+    targetAudience?: JsonNullableFilter<"Product">
+    marketingHooks?: JsonNullableFilter<"Product">
+    adCopies?: JsonNullableFilter<"Product">
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     assets?: ProductAssetListRelationFilter
@@ -23101,6 +23134,9 @@ export namespace Prisma {
     demandLabel?: SortOrderInput | SortOrder
     exclusiveLicensePrice?: SortOrderInput | SortOrder
     exclusiveLicenseSold?: SortOrder
+    targetAudience?: SortOrderInput | SortOrder
+    marketingHooks?: SortOrderInput | SortOrder
+    adCopies?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     assets?: ProductAssetOrderByRelationAggregateInput
@@ -23129,6 +23165,9 @@ export namespace Prisma {
     demandLabel?: StringNullableFilter<"Product"> | string | null
     exclusiveLicensePrice?: FloatNullableFilter<"Product"> | number | null
     exclusiveLicenseSold?: BoolFilter<"Product"> | boolean
+    targetAudience?: JsonNullableFilter<"Product">
+    marketingHooks?: JsonNullableFilter<"Product">
+    adCopies?: JsonNullableFilter<"Product">
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     assets?: ProductAssetListRelationFilter
@@ -23154,6 +23193,9 @@ export namespace Prisma {
     demandLabel?: SortOrderInput | SortOrder
     exclusiveLicensePrice?: SortOrderInput | SortOrder
     exclusiveLicenseSold?: SortOrder
+    targetAudience?: SortOrderInput | SortOrder
+    marketingHooks?: SortOrderInput | SortOrder
+    adCopies?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProductCountOrderByAggregateInput
@@ -23184,6 +23226,9 @@ export namespace Prisma {
     demandLabel?: StringNullableWithAggregatesFilter<"Product"> | string | null
     exclusiveLicensePrice?: FloatNullableWithAggregatesFilter<"Product"> | number | null
     exclusiveLicenseSold?: BoolWithAggregatesFilter<"Product"> | boolean
+    targetAudience?: JsonNullableWithAggregatesFilter<"Product">
+    marketingHooks?: JsonNullableWithAggregatesFilter<"Product">
+    adCopies?: JsonNullableWithAggregatesFilter<"Product">
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
   }
@@ -24510,6 +24555,9 @@ export namespace Prisma {
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     assets?: ProductAssetCreateNestedManyWithoutProductInput
@@ -24535,6 +24583,9 @@ export namespace Prisma {
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     assets?: ProductAssetUncheckedCreateNestedManyWithoutProductInput
@@ -24560,6 +24611,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: ProductAssetUpdateManyWithoutProductNestedInput
@@ -24585,6 +24639,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: ProductAssetUncheckedUpdateManyWithoutProductNestedInput
@@ -24610,6 +24667,9 @@ export namespace Prisma {
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -24632,6 +24692,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24654,6 +24717,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26030,6 +26096,29 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type ProductAssetListRelationFilter = {
     every?: ProductAssetWhereInput
@@ -26059,6 +26148,9 @@ export namespace Prisma {
     demandLabel?: SortOrder
     exclusiveLicensePrice?: SortOrder
     exclusiveLicenseSold?: SortOrder
+    targetAudience?: SortOrder
+    marketingHooks?: SortOrder
+    adCopies?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -26139,6 +26231,32 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type ProductScalarRelationFilter = {
@@ -26321,29 +26439,6 @@ export namespace Prisma {
     productId?: SortOrder
     savedAt?: SortOrder
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type EnumPartnerApplicationStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PartnerApplicationStatus | EnumPartnerApplicationStatusFieldRefInput<$PrismaModel>
@@ -26404,32 +26499,6 @@ export namespace Prisma {
 
   export type PartnerApplicationSumOrderByAggregateInput = {
     audienceSize?: SortOrder
-  }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type EnumPartnerApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -27952,6 +28021,29 @@ export namespace Prisma {
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedEnumLicenseTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.LicenseType | EnumLicenseTypeFieldRefInput<$PrismaModel>
@@ -27975,29 +28067,6 @@ export namespace Prisma {
     in?: $Enums.PartnerApplicationStatus[] | ListEnumPartnerApplicationStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.PartnerApplicationStatus[] | ListEnumPartnerApplicationStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumPartnerApplicationStatusFilter<$PrismaModel> | $Enums.PartnerApplicationStatus
-  }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedEnumPartnerApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -29061,6 +29130,9 @@ export namespace Prisma {
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     licenses?: UserLicenseCreateNestedManyWithoutProductInput
@@ -29085,6 +29157,9 @@ export namespace Prisma {
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     licenses?: UserLicenseUncheckedCreateNestedManyWithoutProductInput
@@ -29125,6 +29200,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     licenses?: UserLicenseUpdateManyWithoutProductNestedInput
@@ -29149,6 +29227,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     licenses?: UserLicenseUncheckedUpdateManyWithoutProductNestedInput
@@ -29232,6 +29313,9 @@ export namespace Prisma {
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     assets?: ProductAssetCreateNestedManyWithoutProductInput
@@ -29256,6 +29340,9 @@ export namespace Prisma {
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     assets?: ProductAssetUncheckedCreateNestedManyWithoutProductInput
@@ -29361,6 +29448,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: ProductAssetUpdateManyWithoutProductNestedInput
@@ -29385,6 +29475,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: ProductAssetUncheckedUpdateManyWithoutProductNestedInput
@@ -29716,6 +29809,9 @@ export namespace Prisma {
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     assets?: ProductAssetCreateNestedManyWithoutProductInput
@@ -29740,6 +29836,9 @@ export namespace Prisma {
     demandLabel?: string | null
     exclusiveLicensePrice?: number | null
     exclusiveLicenseSold?: boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     assets?: ProductAssetUncheckedCreateNestedManyWithoutProductInput
@@ -29845,6 +29944,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: ProductAssetUpdateManyWithoutProductNestedInput
@@ -29869,6 +29971,9 @@ export namespace Prisma {
     demandLabel?: NullableStringFieldUpdateOperationsInput | string | null
     exclusiveLicensePrice?: NullableFloatFieldUpdateOperationsInput | number | null
     exclusiveLicenseSold?: BoolFieldUpdateOperationsInput | boolean
+    targetAudience?: NullableJsonNullValueInput | InputJsonValue
+    marketingHooks?: NullableJsonNullValueInput | InputJsonValue
+    adCopies?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assets?: ProductAssetUncheckedUpdateManyWithoutProductNestedInput

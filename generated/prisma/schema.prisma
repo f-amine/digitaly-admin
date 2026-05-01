@@ -148,6 +148,9 @@ model Product {
   demandLabel           String? // "trending", "high_demand", "beginner_friendly", "new"
   exclusiveLicensePrice Float?
   exclusiveLicenseSold  Boolean    @default(false)
+  targetAudience        Json? // [{ name, occupation, pains[], desires[] }]
+  marketingHooks        Json? // [{ angle: "curiosity"|"fear"|"aspiration"|"contrast", text }]
+  adCopies              Json? // [{ platform: "meta"|"tiktok"|"google", headline?, primaryText, cta? }]
   createdAt             DateTime   @default(now())
   updatedAt             DateTime   @updatedAt
 
